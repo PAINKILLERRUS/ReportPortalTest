@@ -7,6 +7,8 @@ import dto.dashboard.DashboardIdDTO;
 import dto.dashboard.DashboardItemDTO;
 import dto.find_all_dashboards.Content;
 import dto.find_all_dashboards.Dashboard;
+import dto.widget.AddWidgetDTO;
+import dto.widget.WidgetInfo;
 import io.qameta.allure.Step;
 import service.ApiService;
 
@@ -49,5 +51,20 @@ public class ApiSteps {
     @Step("Получение списка всех Dashboard")
     public List<Dashboard> findAllDashboards() {
         return service.findAllDashboards();
+    }
+
+    @Step("Создание Widget")
+    public <T> DashboardIdDTO createWidget(T data) {
+        return service.createWidget(data);
+    }
+
+    @Step("Добавление Widget к Dashboard")
+    public <T> ServerResponse addWidgetToDashboard(final String id, AddWidgetDTO data) {
+        return service.addWidgetToDashboard(id, data);
+    }
+
+    @Step("Получение информации о Widget")
+    public WidgetInfo getWidgetInformation(final String widgetId) {
+        return service.getWidgetInformation(widgetId);
     }
 }

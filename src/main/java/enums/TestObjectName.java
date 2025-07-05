@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum TestObjectName {
     DASHBOARD("AT_DASHBOARD №"),
-    API_KEY("AT_KEY №"),
+    API_KEY("KEY-"),
     WIDGET_NAME("MY_WIDGET№");
 
     private final String publicName;

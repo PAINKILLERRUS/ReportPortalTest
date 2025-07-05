@@ -1,0 +1,15 @@
+{
+  "addWidget": {
+    "widgetId": null,
+    "widgetName": null,
+    "widgetType": "testCaseSearch",
+    "widgetPosition": {
+      "positionX": 0,
+      "positionY": 0
+    },
+    "widgetSize": {
+      "width": 12,
+      "height": 7
+    }
+  }
+}

@@ -1,20 +1,34 @@
 package api;
 
 import dto.ServerResponse;
-import dto.dashboard.DashboardIdDTO;
-import dto.dashboard.DashboardItemDTO;
 import dto.api_key.KeyDTO;
 import dto.api_key.KeyNameDTO;
+import dto.dashboard.DashboardIdDTO;
+import dto.dashboard.DashboardItemDTO;
+import dto.find_all_dashboards.WidgetPosition;
+import dto.find_all_dashboards.WidgetSize;
+import dto.widget.AddWidgetDTO;
+import dto.widget.AddWidgetItem;
+import dto.widget.WidgetDTO;
+import dto.widget.WidgetInfo;
+import service.JsonService;
 import steps.api.ApiSteps;
 
-import static enums.TestObjectName.API_KEY;
-import static enums.TestObjectName.DASHBOARD;
-import static service.NameService.getUniqueApiKeyName;
-import static service.NameService.getUniqueDashboardName;
+import java.io.IOException;
+
+import static enums.JsonPath.ADD_WIDGET_JSON;
+import static enums.JsonPath.CREATE_WIDGET_JSON;
+import static enums.ServerMessage.SUCCESS_ADDED_WIDGET_MESSAGE;
+import static enums.TestObjectName.*;
+import static service.NameService.*;
 
 public final class DashboardUtils {
 
     private static final ApiSteps STEP = new ApiSteps();
+
+    public static String messageEditor(final String dashboardId, final String widgetId) {
+        return SUCCESS_ADDED_WIDGET_MESSAGE.getMessage().replace("{widgetId}", widgetId).replace("{id}", dashboardId);
+    }
 
     public static DashboardIdDTO createDashboard() {
         DashboardItemDTO item = new DashboardItemDTO()
@@ -27,7 +41,7 @@ public final class DashboardUtils {
     public static ServerResponse createDashboardWithError(String option) {
         String errorValue = "1".repeat(130);
 
-        if (option.equals("Size")){
+        if (option.equals("Size")) {
             DashboardItemDTO item = new DashboardItemDTO()
                     .setDescription("Test")
                     .setName(errorValue);
@@ -49,5 +63,28 @@ public final class DashboardUtils {
                 .setName(getUniqueApiKeyName(API_KEY.getPublicName()));
 
         return STEP.createApiKey(name);
+    }
+
+    public static DashboardIdDTO createWidget() throws IOException {
+        WidgetDTO widget = new JsonService().getObjectFromJson(CREATE_WIDGET_JSON.getJsonPathName(), WidgetDTO.class);
+        return STEP.createWidget(widget.setDescription("TestWidget").setName(getWidgetName(WIDGET_NAME.getPublicName())));
+    }
+
+    public static ServerResponse addWidget(String dashboardId, WidgetInfo info) throws IOException {
+        AddWidgetDTO widget = new JsonService().getObjectFromJson(ADD_WIDGET_JSON.getJsonPathName(), AddWidgetDTO.class);
+        return STEP.addWidgetToDashboard(dashboardId, widget.setAddWidget(
+                new AddWidgetItem()
+                        .setWidgetType(info.getWidgetType())
+                        .setWidgetId(info.getId())
+                        .setWidgetName(info.getName())
+                        .setWidgetPosition(
+                                new WidgetPosition()
+                                        .setPositionX(0)
+                                        .setPositionY(0)
+                        )
+                        .setWidgetSize(
+                                new WidgetSize()
+                                        .setHeight(7)
+                                        .setWidth(12))));
     }
 }

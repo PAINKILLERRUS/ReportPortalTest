@@ -8,10 +8,10 @@ public class NameService {
     }
 
     public static String getUniqueApiKeyName(String text) {
-        return text.concat(" ").concat(String.valueOf(Math.round(Math.random() * 10)));
+        return text.concat((UUID.randomUUID().toString()));
     }
 
-    public static String getWidgetName(String text){
+    public static String getWidgetName(String text) {
         return text.concat(" ").concat(UUID.randomUUID().toString());
     }
 }

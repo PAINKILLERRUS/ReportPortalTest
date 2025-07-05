@@ -22,6 +22,7 @@ public class Request {
                 .spec(Specification.responseSpecification(201))
                 .extract().body().as(dtoClass);
     }
+
     public <T> T get(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
                 .headers("Authorization", jwtTokenManager.getJwtToken())
@@ -75,7 +76,21 @@ public class Request {
                 .body().as(dtoClass);
     }
 
-    public <T>T delete(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode){
+    public <T> T put(@NonNull String basePath, @NonNull Object bodyPayLoad, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
+        return given()
+                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .spec(Specification.requestSpecification())
+                .basePath(basePath)
+                .body(bodyPayLoad)
+                .when()
+                .put()
+                .then()
+                .spec(Specification.responseSpecification(statusCode))
+                .extract()
+                .body().as(dtoClass);
+    }
+
+    public <T> T delete(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
                 .headers("Authorization", jwtTokenManager.getJwtToken())
                 .spec(Specification.requestSpecification())

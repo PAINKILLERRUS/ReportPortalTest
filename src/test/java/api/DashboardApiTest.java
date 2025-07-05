@@ -5,14 +5,13 @@ import dto.api_key.KeyDTO;
 import dto.dashboard.DashboardIdDTO;
 import dto.find_all_dashboards.Content;
 import dto.find_all_dashboards.Dashboard;
-import io.qameta.allure.Allure;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Owner;
+import dto.widget.WidgetInfo;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import steps.api.ApiSteps;
 
+import java.io.IOException;
 import java.util.List;
 
 import static api.DashboardUtils.*;
@@ -27,6 +26,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Получение ключа")
     @DisplayName("Получение ключа")
     public void testGetKey() {
         KeyDTO key = createAPIKey();
@@ -34,11 +34,12 @@ public class DashboardApiTest {
         Allure.addAttachment("Key name: ", key.getName());
         Allure.addAttachment("Key id: ", String.valueOf(key.getId()));
         assertNotNull(key.getName(), "Проверка на наличие имени у созданного ключа");
-        assertNotNull(key.getId(),"Проверка на наличие Id у созданного ключа");
+        assertNotNull(key.getId(), "Проверка на наличие Id у созданного ключа");
     }
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Удаление ключа")
     @DisplayName("Удаление ключа")
     public void testDeleteKey() {
         KeyDTO key = createAPIKey();
@@ -51,6 +52,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Создание Dashboard")
     @DisplayName("Создание Dashboard")
     public void testCreateDashboard() {
         DashboardIdDTO dashboard = createDashboard();
@@ -67,6 +69,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Создание и удаление Dashboard")
     @DisplayName("Создание и удаление Dashboard")
     public void testCreateAndDeleteDashboard() {
         DashboardIdDTO dashboard = createDashboard();
@@ -81,6 +84,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Создание Dashboard с пустым именем")
     @DisplayName("Создание Dashboard с пустым именем")
     public void testCreateDashboardWithEmptyNameError() {
         ServerResponse createResponse = createDashboardWithError("Empty");
@@ -90,6 +94,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Создание Dashboard с именем недопустимого размера")
     @DisplayName("Создание Dashboard с именем недопустимого размера")
     public void testCreateDashboardWithNameOfInvalidSizeError() {
         ServerResponse createResponse = createDashboardWithError("Size");
@@ -99,6 +104,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Получение списка всех Dashboard")
     @DisplayName("Получение списка всех Dashboard")
     public void testFindAllDashboards() {
         List<Dashboard> dashboardsList = step.findAllDashboards();
@@ -109,6 +115,7 @@ public class DashboardApiTest {
 
     @Test
     @Owner("Антипов Иван")
+    @Story("Поиск Dashboard по Id")
     @DisplayName("Поиск Dashboard по Id")
     public void testFindDashboardById() {
         DashboardIdDTO dashboard = createDashboard();
@@ -116,5 +123,22 @@ public class DashboardApiTest {
 
         Allure.addAttachment("Dashboard id: ", String.valueOf(dashboard.getId()));
         assertEquals(dashboard.getId(), findDashboard.getId(), "Соответствие Id");
+    }
+
+    @Test
+    @Owner("Антипов Иван")
+    @Story("Добавление Widget к Dashboard")
+    @DisplayName("Добавление Widget к Dashboard")
+    public void testAddWidgetToDashboard() throws IOException {
+        DashboardIdDTO dashboard = createDashboard();
+        DashboardIdDTO widget = createWidget();
+        WidgetInfo widgetInfo = step.getWidgetInformation(widget.getId().toString());
+        ServerResponse addWidgetResponse = addWidget(String.valueOf(dashboard.getId()), widgetInfo);
+
+        Allure.addAttachment("Dashboard id: ", String.valueOf(dashboard.getId()));
+        Allure.addAttachment("Widget id: ", String.valueOf(dashboard.getId()));
+        assertNotNull(dashboard.getId(), "Проверка на наличие Id у созданного Dashboard");
+        assertNotNull(widget.getId(), "Проверка на наличие Id у созданного Widget");
+        assertEquals(addWidgetResponse.getMessage(), messageEditor(dashboard.getId().toString(), widget.getId().toString()));
     }
 }
