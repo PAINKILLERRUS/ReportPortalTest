@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 @Epic("UI")
 @Feature("Widget")
-public class WidgetUITest extends BaseSeleniumTest {
+public class DashboardUiTest extends BaseSeleniumTest {
 
     @Test
     @Owner("Антипов Иван")
