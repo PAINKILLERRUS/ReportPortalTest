@@ -13,7 +13,7 @@ import steps.ui.AddDashboardUISteps;
 
 @Epic("UI")
 @Feature("Dashboard")
-public class DashboardUiTest extends TestSuite {
+public final class DashboardUiTest extends TestSuite {
 
     private final AddDashboardUISteps steps = new AddDashboardUISteps();
 

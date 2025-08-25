@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
-public abstract class BaseSeleniumTest {
+public abstract sealed class BaseSeleniumTest permits DashboardUiTest {
     private static WebDriver driver;
 
     @BeforeAll

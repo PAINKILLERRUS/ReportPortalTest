@@ -17,6 +17,7 @@ public class DashboardPage {
     private final SelenideElement deleteIcon = $(byAttribute("class", "icon__icon--coE7b icon__icon-delete--lwBwP"));
     private final SelenideElement deleteButton = $(byAttribute("class", "bigButton__big-button--BmG4Q bigButton__color-tomato--jXOiC"));
     private final SelenideElement addNewWidget = $(findByText("Add new widget"));
+    private final SelenideElement noSearchResults = $(byAttribute("class", "noResultsForFilter__no-results-for-filter-hint--YsxeD"));
 
     private final SelenideElement enterDashboardNameField = $(byAttribute("placeholder", "Enter dashboard name"));
     private final SelenideElement enterDashboardDescriptionField = $(byAttribute("placeholder", "Enter dashboard description"));

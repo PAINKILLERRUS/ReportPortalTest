@@ -2,7 +2,6 @@ package steps.ui;
 
 import POM.selenide.DashboardPage;
 import POM.selenide.WidgetPage;
-import com.codeborne.selenide.SelenideElement;
 import dto.HubDTO;
 import io.qameta.allure.Step;
 
@@ -10,10 +9,10 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.visible;
-import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertEquals;
 import static service.SelenideService.findByText;
 
-public class AddDashboardUISteps extends UISteps {
+public non-sealed class AddDashboardUISteps extends UISteps {
 
     private final DashboardPage dashboardPage = new DashboardPage();
     private final WidgetPage widgetPage = new WidgetPage();
@@ -34,11 +33,11 @@ public class AddDashboardUISteps extends UISteps {
     @Step("Удаление созданного Dashboard")
     public AddDashboardUISteps deleteDashboard(HubDTO item) {
         addDashboard(item);
-        SelenideElement objToDeleted = findByText(item.getDashboardItemDTO().getName());
+        findByText(item.getDashboardItemDTO().getName());
         click(dashboardPage.getDeleteIcon().shouldBe(visible, Duration.ofSeconds(5)));
         click(dashboardPage.getDeleteButton().shouldBe(visible, Duration.ofSeconds(5)));
         setValue(dashboardPage.getSearchByNameField(), item.getDashboardItemDTO().getName());
-        assertFalse(objToDeleted.isDisplayed());
+        assertEquals(dashboardPage.getNoSearchResults().getText(), "Check your query and try again");
         return this;
     }
 

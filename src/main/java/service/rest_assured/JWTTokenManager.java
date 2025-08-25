@@ -1,6 +1,5 @@
 package service.rest_assured;
 
-import configuration.ConfigReader;
 import dto.TokenDTO;
 import io.restassured.http.ContentType;
 import specifications.Specification;
@@ -13,7 +12,6 @@ import static service.ApiService.GET_TOKEN;
 
 public class JWTTokenManager {
     private String jwtToken;
-    private ConfigReader reader;
 
     public String getJwtToken() {
         if (jwtToken == null) {

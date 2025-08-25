@@ -5,7 +5,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -15,7 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Базовый класс для инициализации Selenide
  */
-public abstract class TestSuite {
+public abstract sealed class TestSuite permits DashboardUiTest {
 
     private final ConfigReader configReader = new ConfigReader();
 
@@ -26,12 +25,12 @@ public abstract class TestSuite {
     @BeforeSuite(alwaysRun = true)
     @Parameters({"browser", "baseUrl"})
     public void init(@Optional() String browser, @Optional() String baseUrl) {
-        WebDriverManager.chromedriver().setup();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
+        Configuration.browser = "edge";
         Configuration.headless = false;
-        System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
-        System.setProperty("selenide.browser", "Chrome");
+        System.setProperty("webdriver.edge.driver", configReader.getProperty("msedgedriver"));
+        System.setProperty("selenide.browser", "Edge");
 
         if (isRemote()) {
             Configuration.remote = "";

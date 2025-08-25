@@ -10,7 +10,7 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.interactable;
 import static service.SelenideService.findByText;
 
-public class UISteps {
+public sealed class UISteps permits AddDashboardUISteps {
 
     @Step("Находим элемент ={element} на странице и кликаем")
     public Object click(SelenideElement element) {
