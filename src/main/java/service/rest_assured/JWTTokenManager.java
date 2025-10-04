@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static service.ApiService.GET_TOKEN;
+import static service.DashboardService.GET_TOKEN;
 
 public class JWTTokenManager {
     private String jwtToken;

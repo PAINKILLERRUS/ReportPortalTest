@@ -1,7 +1,7 @@
 package service.rest_assured;
 
 public interface Dto {
-    Integer getId();
+    int getId();
 
     String getName();
 }

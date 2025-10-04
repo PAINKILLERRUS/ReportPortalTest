@@ -3,13 +3,14 @@ package dto.find_all_dashboards;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import service.rest_assured.Dto;
 
 import java.util.List;
 
 @Data
 @Accessors(chain = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Content {
+public class Content implements Dto {
     private String owner;
     private int id;
     private String name;

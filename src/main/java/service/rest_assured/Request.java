@@ -1,5 +1,6 @@
 package service.rest_assured;
 
+import io.restassured.response.Response;
 import lombok.NonNull;
 import specifications.Specification;
 
@@ -19,8 +20,20 @@ public class Request {
                 .when()
                 .get()
                 .then()
-                .spec(Specification.responseSpecification(201))
+                .spec(Specification.responseSpecification(200))
                 .extract().body().as(dtoClass);
+    }
+
+    public Response get(@NonNull String basePath, @NonNull Integer statusCode) {
+        return given()
+                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .spec(Specification.requestSpecification())
+                .basePath(basePath)
+                .when()
+                .get()
+                .then()
+                .spec(Specification.responseSpecification(statusCode))
+                .extract().response();
     }
 
     public <T> T get(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {

@@ -7,22 +7,33 @@ import dto.find_all_dashboards.Content;
 import dto.find_all_dashboards.Dashboard;
 import dto.widget.WidgetInfo;
 import io.qameta.allure.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import steps.api.ApiSteps;
+import steps.api.DashboardSteps;
+import steps.api.KeySteps;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static api.DashboardUtils.*;
 import static enums.ServerMessage.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static service.CleaningService.deleteAllUnusedObjects;
 
 @Epic("API")
 @Feature("Dashboard")
 public class DashboardApiTest {
 
-    private final ApiSteps step = new ApiSteps();
+    private final DashboardSteps step = new DashboardSteps();
+
+    private final KeySteps keyStep = new KeySteps();
+
+    @AfterAll
+    public static void deleteObjects() {
+        deleteAllUnusedObjects();
+    }
 
     @Test
     @Owner("Антипов Иван")
@@ -43,11 +54,28 @@ public class DashboardApiTest {
     @DisplayName("Удаление ключа")
     public void testDeleteKey() {
         KeyDTO key = createAPIKey();
-        ServerResponse deleteResponse = step.deleteApiKey(key.getId());
+        ServerResponse deleteResponse = keyStep.deleteApiKey(key.getId());
 
         String messageAboutDeletion = DELETE_API_KEY_RESPONSE.getMessage().replace("{id}", String.valueOf(key.getId()));
 
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении API KEY");
+    }
+
+    @Test
+    @Owner("Антипов Иван")
+    @Story("Получение списка всех созданных ключей")
+    @DisplayName("Получение списка всех созданных ключей")
+    public void testGettingAListOfAllCreatedKeys() {
+        KeyDTO key1 = createAPIKey();
+        KeyDTO key2 = createAPIKey();
+        KeyDTO key3 = createAPIKey();
+
+        List<KeyDTO> apiKeysList = keyStep.getAllApiKeys();
+
+        Allure.addAttachment("Key1 name: ", key1.getName());
+        Allure.addAttachment("Key2 name: ", key2.getName());
+        Allure.addAttachment("Key3 name: ", key3.getName());
+        assertNotNull(apiKeysList.stream().map(KeyDTO::getId).collect(Collectors.toSet()), "Проверка наличия ID у созданных ключей в общем списке");
     }
 
     @Test

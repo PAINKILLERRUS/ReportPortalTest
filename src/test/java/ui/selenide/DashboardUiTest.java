@@ -6,6 +6,7 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
+import listeners.RetryService;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -43,7 +44,8 @@ public final class DashboardUiTest extends TestSuite {
 
     @Owner("Антипов Иван")
     @Story("Добавление Widget в Dashboard")
-    @Test(testName = "Добавление Widget в Dashboard", dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
+    @Test(testName = "Добавление Widget в Dashboard", retryAnalyzer = RetryService.class,
+            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
     public void addNewWidget(HubDTO item) {
         steps.addWidgetIntoDashboard(item);
     }

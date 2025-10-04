@@ -1,8 +1,6 @@
 package steps.api;
 
 import dto.ServerResponse;
-import dto.api_key.KeyDTO;
-import dto.api_key.KeyNameDTO;
 import dto.dashboard.DashboardIdDTO;
 import dto.dashboard.DashboardItemDTO;
 import dto.find_all_dashboards.Content;
@@ -10,23 +8,13 @@ import dto.find_all_dashboards.Dashboard;
 import dto.widget.AddWidgetDTO;
 import dto.widget.WidgetInfo;
 import io.qameta.allure.Step;
-import service.ApiService;
+import service.DashboardService;
 
 import java.util.List;
 
-public class ApiSteps {
+public class DashboardSteps {
 
-    private final ApiService service = new ApiService();
-
-    @Step("Создание и получение API Key")
-    public KeyDTO createApiKey(KeyNameDTO name) {
-        return service.createApiKey(name);
-    }
-
-    @Step("Удаление ключа")
-    public ServerResponse deleteApiKey(int keyId) {
-        return service.deleteApiKey(keyId);
-    }
+    private final DashboardService service = new DashboardService();
 
     @Step("Создание Dashboard с ошибкой")
     public ServerResponse createDashboardWithError(DashboardItemDTO item) {

@@ -12,7 +12,8 @@ import dto.widget.AddWidgetItem;
 import dto.widget.WidgetDTO;
 import dto.widget.WidgetInfo;
 import service.JsonService;
-import steps.api.ApiSteps;
+import steps.api.DashboardSteps;
+import steps.api.KeySteps;
 
 import java.io.IOException;
 
@@ -24,7 +25,8 @@ import static service.NameService.*;
 
 public final class DashboardUtils {
 
-    private static final ApiSteps STEP = new ApiSteps();
+    private static final DashboardSteps STEP = new DashboardSteps();
+    private static final KeySteps KEY_STEPS = new KeySteps();
 
     public static String messageEditor(final String dashboardId, final String widgetId) {
         return SUCCESS_ADDED_WIDGET_MESSAGE.getMessage().replace("{widgetId}", widgetId).replace("{id}", dashboardId);
@@ -62,7 +64,7 @@ public final class DashboardUtils {
         KeyNameDTO name = new KeyNameDTO()
                 .setName(getUniqueApiKeyName(API_KEY.getPublicName()));
 
-        return STEP.createApiKey(name);
+        return KEY_STEPS.createApiKey(name);
     }
 
     public static DashboardIdDTO createWidget() throws IOException {
