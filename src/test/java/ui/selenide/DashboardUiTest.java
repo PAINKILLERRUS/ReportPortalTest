@@ -49,4 +49,28 @@ public final class DashboardUiTest extends TestSuite {
     public void addNewWidget(HubDTO item) {
         steps.addWidgetIntoDashboard(item);
     }
+
+    @Owner("Антипов Иван")
+    @Story("Поиск Dashboard в общем списке")
+    @Test(testName = "Поиск Dashboard в общем списке", retryAnalyzer = RetryService.class,
+            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
+    public void searchDashboardInTheGeneralList(HubDTO item) {
+
+    }
+
+    @Owner("Антипов Иван")
+    @Story("Создание нового Api ключа")
+    @Test(testName = "Создание нового Api ключа", retryAnalyzer = RetryService.class,
+            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
+    public void createNewApiKey(HubDTO item) {
+
+    }
+
+    @Owner("Антипов Иван")
+    @Story("Удаление Api ключа")
+    @Test(testName = "Удаление Api ключа", retryAnalyzer = RetryService.class,
+            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
+    public void deletedApiKey(HubDTO item) {
+
+    }
 }

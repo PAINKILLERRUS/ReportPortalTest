@@ -1,11 +1,11 @@
 package service;
 
 import dto.ServerResponse;
+import dto.api_key.AllKeysDTO;
 import dto.api_key.KeyDTO;
 import service.rest_assured.ApiInterface;
 import service.rest_assured.Request;
 
-import java.util.Collections;
 import java.util.List;
 
 public class KeyService implements ApiInterface {
@@ -32,6 +32,7 @@ public class KeyService implements ApiInterface {
 
     @Override
     public List<KeyDTO> getAll() {
-        return Collections.singletonList(new Request().get(GET_ALL_KEYS, KeyDTO.class, 200));
+        AllKeysDTO keysDTO = new Request().get(GET_ALL_KEYS, AllKeysDTO.class, 200);
+        return keysDTO.getItems();
     }
 }

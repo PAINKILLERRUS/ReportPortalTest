@@ -44,7 +44,8 @@ public class DashboardService implements ApiInterface {
 
     @Override
     public List<Content> getAll() {
-        return Collections.singletonList(new Request().get(CREATE_DASHBOARD, Content.class, 200));
+        Dashboard dashboard = new Request().get(CREATE_DASHBOARD, Dashboard.class, 200);
+        return dashboard.getContent();
     }
 
     public List<Dashboard> findAllDashboards() {
@@ -55,7 +56,7 @@ public class DashboardService implements ApiInterface {
         return new Request().post(CREATE_WIDGET, data, DashboardIdDTO.class, 201);
     }
 
-    public <T> ServerResponse addWidgetToDashboard(final String id, AddWidgetDTO data) {
+    public ServerResponse addWidgetToDashboard(final String id, AddWidgetDTO data) {
         return new Request().put(ADD_WIDGET_TO_DASHBOARD.replace("{id}", id), data, ServerResponse.class, 200);
     }
 

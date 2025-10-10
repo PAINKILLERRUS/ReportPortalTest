@@ -47,7 +47,7 @@ public class DashboardSteps {
     }
 
     @Step("Добавление Widget к Dashboard")
-    public <T> ServerResponse addWidgetToDashboard(final String id, AddWidgetDTO data) {
+    public ServerResponse addWidgetToDashboard(final String id, AddWidgetDTO data) {
         return service.addWidgetToDashboard(id, data);
     }
 
