@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Базовый класс для инициализации Selenide
  */
-public abstract sealed class TestSuite permits DashboardUiTest {
+public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
 
     private final ConfigReader configReader = new ConfigReader();
 

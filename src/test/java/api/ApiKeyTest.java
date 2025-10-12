@@ -19,7 +19,7 @@ import static service.CleaningService.deleteAllUnusedObjects;
 
 @Epic("API")
 @Feature("Api Key")
-public class KeyApiTest {
+public class ApiKeyTest {
 
     private final KeySteps keyStep = new KeySteps();
 

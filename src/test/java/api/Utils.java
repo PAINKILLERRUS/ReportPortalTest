@@ -4,13 +4,14 @@ import dto.ServerResponse;
 import dto.api_key.KeyDTO;
 import dto.api_key.KeyNameDTO;
 import dto.dashboard.DashboardIdDTO;
-import dto.dashboard.DashboardItemDTO;
 import dto.find_all_dashboards.WidgetPosition;
 import dto.find_all_dashboards.WidgetSize;
 import dto.widget.AddWidgetDTO;
 import dto.widget.AddWidgetItem;
 import dto.widget.WidgetDTO;
 import dto.widget.WidgetInfo;
+import patterns.factory_method.Dashboard;
+import patterns.factory_method.DashboardFactory;
 import service.JsonService;
 import steps.api.DashboardSteps;
 import steps.api.KeySteps;
@@ -20,8 +21,10 @@ import java.io.IOException;
 import static enums.JsonPath.ADD_WIDGET_JSON;
 import static enums.JsonPath.CREATE_WIDGET_JSON;
 import static enums.ServerMessage.SUCCESS_ADDED_WIDGET_MESSAGE;
-import static enums.TestObjectName.*;
-import static service.NameService.*;
+import static enums.TestObjectName.API_KEY;
+import static enums.TestObjectName.WIDGET_NAME;
+import static service.NameService.getUniqueApiKeyName;
+import static service.NameService.getWidgetName;
 
 public final class Utils {
 
@@ -33,29 +36,19 @@ public final class Utils {
     }
 
     public static DashboardIdDTO createDashboard() {
-        DashboardItemDTO item = new DashboardItemDTO()
-                .setDescription("Test")
-                .setName(getUniqueDashboardName(DASHBOARD.getPublicName()));
-
-        return STEP.create(item);
+        Dashboard dashboard = DashboardFactory.createDashboard("standard");
+        return STEP.create(dashboard);
     }
 
     public static ServerResponse createDashboardWithError(String option) {
-        String errorValue = "1".repeat(130);
 
         if (option.equals("Size")) {
-            DashboardItemDTO item = new DashboardItemDTO()
-                    .setDescription("Test")
-                    .setName(errorValue);
-
-            return STEP.createDashboardWithError(item);
+            Dashboard dashboardWithErrorParameter = DashboardFactory.createDashboard("error");
+            return STEP.createDashboardWithError(dashboardWithErrorParameter);
 
         } else if (option.equals("Empty")) {
-            DashboardItemDTO item = new DashboardItemDTO()
-                    .setDescription("Test")
-                    .setName("");
-
-            return STEP.createDashboardWithError(item);
+            Dashboard dashboardWithEmptyName = DashboardFactory.createDashboard("empty");
+            return STEP.createDashboardWithError(dashboardWithEmptyName);
 
         } else throw new RuntimeException("Empty option field.");
     }

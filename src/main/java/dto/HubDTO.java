@@ -1,6 +1,7 @@
 package dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import dto.api_key.KeyNameDTO;
 import dto.dashboard.DashboardItemDTO;
 import dto.widget.WidgetDTO;
 import lombok.Data;
@@ -12,4 +13,5 @@ import lombok.experimental.Accessors;
 public class HubDTO {
     private DashboardItemDTO dashboardItemDTO;
     private WidgetDTO widget;
+    private KeyNameDTO key;
 }

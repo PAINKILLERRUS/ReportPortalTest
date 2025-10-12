@@ -2,7 +2,6 @@ package service;
 
 import dto.ServerResponse;
 import dto.dashboard.DashboardIdDTO;
-import dto.dashboard.DashboardItemDTO;
 import dto.find_all_dashboards.Content;
 import dto.find_all_dashboards.Dashboard;
 import dto.widget.AddWidgetDTO;
@@ -23,8 +22,8 @@ public class DashboardService implements ApiInterface {
     private static final String ADD_WIDGET_TO_DASHBOARD = "/api/v1/default_personal/dashboard/{id}/add";
 
 
-    public ServerResponse createDashboardWithError(DashboardItemDTO item) {
-        return new Request().post(CREATE_DASHBOARD, item, ServerResponse.class, 400);
+    public <T> ServerResponse createDashboardWithError(T data) {
+        return new Request().post(CREATE_DASHBOARD, data, ServerResponse.class, 400);
     }
 
     @Override

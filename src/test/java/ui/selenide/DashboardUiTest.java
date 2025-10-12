@@ -10,13 +10,13 @@ import listeners.RetryService;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import steps.ui.AddDashboardUISteps;
+import steps.ui.DashboardUISteps;
 
 @Epic("UI")
 @Feature("Dashboard")
 public final class DashboardUiTest extends TestSuite {
 
-    private final AddDashboardUISteps steps = new AddDashboardUISteps();
+    private final DashboardUISteps steps = new DashboardUISteps();
 
     @BeforeMethod
     public void setUp() {
@@ -38,7 +38,7 @@ public final class DashboardUiTest extends TestSuite {
     @Owner("Антипов Иван")
     @Story("Удаление Dashboard")
     @Test(testName = "Удаление Dashboard", dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboard")
-    public void deletedDashboard(HubDTO item) {
+    public void deletedDashboardTest(HubDTO item) {
         steps.deleteDashboard(item);
     }
 
@@ -46,31 +46,7 @@ public final class DashboardUiTest extends TestSuite {
     @Story("Добавление Widget в Dashboard")
     @Test(testName = "Добавление Widget в Dashboard", retryAnalyzer = RetryService.class,
             dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
-    public void addNewWidget(HubDTO item) {
+    public void addNewWidgetTest(HubDTO item) {
         steps.addWidgetIntoDashboard(item);
-    }
-
-    @Owner("Антипов Иван")
-    @Story("Поиск Dashboard в общем списке")
-    @Test(testName = "Поиск Dashboard в общем списке", retryAnalyzer = RetryService.class,
-            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
-    public void searchDashboardInTheGeneralList(HubDTO item) {
-
-    }
-
-    @Owner("Антипов Иван")
-    @Story("Создание нового Api ключа")
-    @Test(testName = "Создание нового Api ключа", retryAnalyzer = RetryService.class,
-            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
-    public void createNewApiKey(HubDTO item) {
-
-    }
-
-    @Owner("Антипов Иван")
-    @Story("Удаление Api ключа")
-    @Test(testName = "Удаление Api ключа", retryAnalyzer = RetryService.class,
-            dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboardAndWidget")
-    public void deletedApiKey(HubDTO item) {
-
     }
 }

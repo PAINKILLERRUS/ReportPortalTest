@@ -2,7 +2,6 @@ package steps.api;
 
 import dto.ServerResponse;
 import dto.dashboard.DashboardIdDTO;
-import dto.dashboard.DashboardItemDTO;
 import dto.find_all_dashboards.Content;
 import dto.find_all_dashboards.Dashboard;
 import dto.widget.AddWidgetDTO;
@@ -17,8 +16,8 @@ public class DashboardSteps {
     private final DashboardService service = new DashboardService();
 
     @Step("Создание Dashboard с ошибкой")
-    public ServerResponse createDashboardWithError(DashboardItemDTO item) {
-        return service.createDashboardWithError(item);
+    public <T> ServerResponse createDashboardWithError(T data) {
+        return service.createDashboardWithError(data);
     }
 
     @Step("Удаление Dashboard")
