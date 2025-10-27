@@ -7,12 +7,14 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import listeners.RetryService;
+import org.junit.jupiter.api.Tag;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.ui.ApiKeyUiSteps;
 
 @Epic("UI")
+@Tag("UI")
 @Feature("Api Keys")
 public final class ApiKeyUiTest extends TestSuite {
 

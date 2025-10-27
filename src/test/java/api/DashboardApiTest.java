@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static service.CleaningService.deleteAllUnusedObjects;
 
 @Epic("API")
-@Feature("Dashboard")
 @Tag("API")
+@Feature("Dashboard")
 public class DashboardApiTest {
 
     private final DashboardSteps step = new DashboardSteps();

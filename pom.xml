@@ -190,6 +190,7 @@
                 <configuration>
                     <properties>
                         <includeTags>API</includeTags>
+                        <includeTags>UI</includeTags>
                     </properties>
                 </configuration>
             </plugin>

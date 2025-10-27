@@ -5,6 +5,7 @@ import dto.api_key.KeyDTO;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import steps.api.KeySteps;
 
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static service.CleaningService.deleteAllUnusedObjects;
 
 @Epic("API")
+@Tag("API")
 @Feature("Api Key")
 public class ApiKeyTest {
 
