@@ -27,10 +27,10 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     public void init(@Optional() String browser, @Optional() String baseUrl) {
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
-        Configuration.browser = "edge";
+        Configuration.browser = "Chrome";
         Configuration.headless = false;
-        System.setProperty("webdriver.edge.driver", configReader.getProperty("msedgedriver"));
-        System.setProperty("selenide.browser", "Edge");
+        System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
+        System.setProperty("selenide.browser", "Chrome");
 
         if (isRemote()) {
             Configuration.remote = "";
