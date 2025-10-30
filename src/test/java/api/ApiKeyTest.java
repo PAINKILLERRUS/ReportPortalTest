@@ -3,10 +3,9 @@ package api;
 import dto.ServerResponse;
 import dto.api_key.KeyDTO;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
 import steps.api.KeySteps;
 
 import java.util.List;
@@ -25,15 +24,14 @@ public class ApiKeyTest {
 
     private final KeySteps keyStep = new KeySteps();
 
-    @AfterAll
+    @AfterTest
     public static void deleteObjects() {
         deleteAllUnusedObjects();
     }
 
-    @Test
     @Owner("Антипов Иван")
     @Story("Получение ключа")
-    @DisplayName("Получение ключа")
+    @Test(testName = "Получение ключа")
     public void testGetKey() {
         KeyDTO key = createAPIKey();
 
@@ -43,10 +41,9 @@ public class ApiKeyTest {
         assertNotNull(key.getId(), "Проверка на наличие Id у созданного ключа");
     }
 
-    @Test
     @Owner("Антипов Иван")
     @Story("Удаление ключа")
-    @DisplayName("Удаление ключа")
+    @Test(testName = "Удаление ключа")
     public void testDeleteKey() {
         KeyDTO key = createAPIKey();
         ServerResponse deleteResponse = keyStep.deleteApiKey(key.getId());
@@ -56,10 +53,9 @@ public class ApiKeyTest {
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении API KEY");
     }
 
-    @Test
     @Owner("Антипов Иван")
     @Story("Получение списка всех созданных ключей")
-    @DisplayName("Получение списка всех созданных ключей")
+    @Test(testName = "Получение списка всех созданных ключей")
     public void testGettingAListOfAllCreatedKeys() {
         KeyDTO key1 = createAPIKey();
         KeyDTO key2 = createAPIKey();
