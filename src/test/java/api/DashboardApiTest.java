@@ -10,6 +10,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import steps.api.DashboardSteps;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import static service.CleaningService.deleteAllUnusedObjects;
 @Epic("API")
 @Tag("API")
 @Feature("Dashboard")
+@Execution(ExecutionMode.CONCURRENT)
 public class DashboardApiTest {
 
     private final DashboardSteps step = new DashboardSteps();
