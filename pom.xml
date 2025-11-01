@@ -125,51 +125,26 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.23.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
-                <configuration>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.6/aspectjweaver-1.9.6.jar"
-                    </argLine>
-                    <systemProperties>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>C:\Users\Ivan\IdeaProjects\ReportPortalTest\allure-results</value>
-                        </property>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>C:\Users\Ivan\IdeaProjects\ReportPortalTest\allure-results</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-                <dependencies>
-<!--                    <dependency>-->
-<!--                        <groupId>org.junit.platform</groupId>-->
-<!--                        <artifactId>junit-platform-surefire-provider</artifactId>-->
-<!--                        <version>1.3.2</version>-->
-<!--                    </dependency>-->
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>1.9.6</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
 
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.10.0</version>
                 <configuration>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
                     <reportVersion>2.23.0</reportVersion>
-                    <resultsDirectory>C:\Users\Ivan\IdeaProjects\ReportPortalTest\allure-results</resultsDirectory>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
 
@@ -189,6 +164,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>ApiKey-APITests.xml</suiteXmlFile>
                     </suiteXmlFiles>
