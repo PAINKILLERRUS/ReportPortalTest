@@ -29,6 +29,7 @@ public class ApiKeyTest {
         deleteAllUnusedObjects();
     }
 
+    @Tag("API")
     @Owner("Антипов Иван")
     @Story("Получение ключа")
     @Test(testName = "Получение ключа")
@@ -41,6 +42,7 @@ public class ApiKeyTest {
         assertNotNull(key.getId(), "Проверка на наличие Id у созданного ключа");
     }
 
+    @Tag("API")
     @Owner("Антипов Иван")
     @Story("Удаление ключа")
     @Test(testName = "Удаление ключа")
@@ -53,6 +55,7 @@ public class ApiKeyTest {
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении API KEY");
     }
 
+    @Tag("API")
     @Owner("Антипов Иван")
     @Story("Получение списка всех созданных ключей")
     @Test(testName = "Получение списка всех созданных ключей")

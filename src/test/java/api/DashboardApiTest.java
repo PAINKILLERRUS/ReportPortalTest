@@ -35,6 +35,7 @@ public class DashboardApiTest {
         deleteAllUnusedObjects();
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Создание Dashboard")
@@ -52,6 +53,7 @@ public class DashboardApiTest {
         assertTrue(existsDashboardId, "Проверка на наличие Id созданного Dashboard в общем списке");
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Создание и удаление Dashboard")
@@ -67,6 +69,7 @@ public class DashboardApiTest {
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении Dashboard");
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Создание Dashboard с пустым именем")
@@ -77,6 +80,7 @@ public class DashboardApiTest {
         assertEquals(ERROR_MESSAGE_EMPTY_VALUE.getMessage(), createResponse.getMessage(), "Соответствие информативного сообщения об ошибке");
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Создание Dashboard с именем недопустимого размера")
@@ -87,6 +91,7 @@ public class DashboardApiTest {
         assertEquals(ERROR_MESSAGE_INVALID_SIZE.getMessage(), createResponse.getMessage(), "Соответствие информативного сообщения об ошибке");
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Получение списка всех Dashboard")
@@ -98,6 +103,7 @@ public class DashboardApiTest {
         assertNotNull(contentList, "Проверка на наличие сущностей в списке");
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Поиск Dashboard по Id")
@@ -110,6 +116,7 @@ public class DashboardApiTest {
         assertEquals(dashboard.getId(), findDashboard.getId(), "Соответствие Id");
     }
 
+    @Tag("API")
     @Test
     @Owner("Антипов Иван")
     @Story("Добавление Widget к Dashboard")
