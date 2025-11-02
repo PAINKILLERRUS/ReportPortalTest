@@ -170,7 +170,7 @@
 <!--                    <suiteXmlFiles>-->
 <!--                        <suiteXmlFile>ApiKey-APITests.xml</suiteXmlFile>-->
 <!--                    </suiteXmlFiles>-->
-<!--                    <groups>API</groups>-->
+                    <groups>API</groups>
                     <groups>UI</groups>
                     <excludedGroups>${}</excludedGroups>
                 </configuration>
