@@ -167,11 +167,10 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-<!--                    <suiteXmlFiles>-->
-<!--                        <suiteXmlFile>ApiKey-APITests.xml</suiteXmlFile>-->
-<!--                    </suiteXmlFiles>-->
-                    <groups>API</groups>
-                    <groups>UI</groups>
+                    <!--                    <suiteXmlFiles>-->
+                    <!--                        <suiteXmlFile>ApiKey-APITests.xml</suiteXmlFile>-->
+                    <!--                    </suiteXmlFiles>-->
+                    <groups>API, UI</groups>
                     <excludedGroups>${}</excludedGroups>
                 </configuration>
             </plugin>
