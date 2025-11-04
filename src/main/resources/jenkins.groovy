@@ -14,7 +14,7 @@ node {
                     throw ("${err}")
                 }
             } else {
-                echo "Current branch is master"
+                echo "Current branch is main"
             }
         }
 
