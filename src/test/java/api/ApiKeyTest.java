@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static service.CleaningService.deleteAllUnusedObjects;
 
 @Epic("API")
-@Tag("API")
 @Feature("Api Key")
 public class ApiKeyTest {
 
@@ -50,6 +49,8 @@ public class ApiKeyTest {
 
         String messageAboutDeletion = DELETE_API_KEY_RESPONSE.getMessage().replace("{id}", String.valueOf(key.getId()));
 
+        Allure.addAttachment("Key name: ", key.getName());
+        Allure.addAttachment("Deletion message: ", deleteResponse.getMessage());
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении API KEY");
     }
 

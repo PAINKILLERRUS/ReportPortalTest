@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import steps.ui.DashboardUISteps;
 
 @Epic("UI")
-@Tag("UI")
 @Feature("Dashboard")
 public final class DashboardUiTest extends TestSuite {
 

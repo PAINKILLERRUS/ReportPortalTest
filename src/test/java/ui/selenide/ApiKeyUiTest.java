@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import steps.ui.ApiKeyUiSteps;
 
 @Epic("UI")
-@Tag("UI")
 @Feature("Api Keys")
 public final class ApiKeyUiTest extends TestSuite {
 

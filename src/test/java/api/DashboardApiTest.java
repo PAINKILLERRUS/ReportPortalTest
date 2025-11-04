@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static service.CleaningService.deleteAllUnusedObjects;
 
 @Epic("API")
-@Tag("API")
 @Feature("Dashboard")
 @Execution(ExecutionMode.CONCURRENT)
 public class DashboardApiTest {
