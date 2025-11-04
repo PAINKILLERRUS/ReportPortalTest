@@ -29,10 +29,9 @@ public class ApiKeyTest {
         deleteAllUnusedObjects();
     }
 
-    @Tag("API")
     @Owner("Антипов Иван")
     @Story("Получение ключа")
-    @Test(testName = "Получение ключа")
+    @Test(testName = "Получение ключа", groups = {"API"})
     public void testGetKey() {
         KeyDTO key = createAPIKey();
 
@@ -42,10 +41,9 @@ public class ApiKeyTest {
         assertNotNull(key.getId(), "Проверка на наличие Id у созданного ключа");
     }
 
-    @Tag("API")
     @Owner("Антипов Иван")
     @Story("Удаление ключа")
-    @Test(testName = "Удаление ключа")
+    @Test(testName = "Удаление ключа", groups = {"API"})
     public void testDeleteKey() {
         KeyDTO key = createAPIKey();
         ServerResponse deleteResponse = keyStep.deleteApiKey(key.getId());
@@ -55,10 +53,9 @@ public class ApiKeyTest {
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении API KEY");
     }
 
-    @Tag("API")
     @Owner("Антипов Иван")
     @Story("Получение списка всех созданных ключей")
-    @Test(testName = "Получение списка всех созданных ключей")
+    @Test(testName = "Получение списка всех созданных ключей", groups = {"API"})
     public void testGettingAListOfAllCreatedKeys() {
         KeyDTO key1 = createAPIKey();
         KeyDTO key2 = createAPIKey();

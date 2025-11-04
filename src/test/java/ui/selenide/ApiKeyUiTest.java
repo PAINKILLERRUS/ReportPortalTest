@@ -30,18 +30,16 @@ public final class ApiKeyUiTest extends TestSuite {
         tearDown();
     }
 
-    @Tag("UI")
     @Owner("Антипов Иван")
     @Story("Создание нового Api ключа")
-    @Test(testName = "Создание нового Api ключа", retryAnalyzer = RetryService.class, dataProviderClass = ApiKeyDataProvider.class, dataProvider = "createApiKey")
+    @Test(testName = "Создание нового Api ключа", groups = {"UI"}, retryAnalyzer = RetryService.class, dataProviderClass = ApiKeyDataProvider.class, dataProvider = "createApiKey")
     public void createNewApiKeyTest(HubDTO item) {
         steps.generateApiKey(item);
     }
 
-    @Tag("UI")
     @Owner("Антипов Иван")
     @Story("Удаление Api ключа")
-    @Test(testName = "Удаление Api ключа", dataProviderClass = ApiKeyDataProvider.class, dataProvider = "createApiKey")
+    @Test(testName = "Удаление Api ключа", groups = {"UI"}, dataProviderClass = ApiKeyDataProvider.class, dataProvider = "createApiKey")
     public void deletedApiKeyTest(HubDTO item) {
         steps.deletingApiKey(item);
     }

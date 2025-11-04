@@ -26,7 +26,7 @@ node {
 //            }
 //        }
 
-        try{
+        try {
             stage("Run tests") {
                 parallel(
                         'Api Tests': {
@@ -45,7 +45,7 @@ node {
     }
 }
 
-def getTestStages(testTags){
+def getTestStages(testTags) {
     def stages = [:]
     testTags.each { tag ->
         stages["${tag}"] = {
@@ -55,9 +55,9 @@ def getTestStages(testTags){
     return stages
 }
 
-def runTestWithTag(String tag){
+def runTestWithTag(String tag) {
     try {
-        labelledShell(label : "Run ${tag}", script : "sh \"mvn test -Dgroups=${tag}\"")
+        labelledShell(label: "Run ${tag}", script: "sh \"mvn test -Dgroups=${tag}\"")
     } finally {
         echo "some failed tests"
     }

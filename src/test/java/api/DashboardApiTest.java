@@ -7,11 +7,10 @@ import dto.find_all_dashboards.Dashboard;
 import dto.widget.WidgetInfo;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.testng.annotations.Test;
 import steps.api.DashboardSteps;
 
 import java.io.IOException;
@@ -35,11 +34,9 @@ public class DashboardApiTest {
         deleteAllUnusedObjects();
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Создание Dashboard")
-    @DisplayName("Создание Dashboard")
+    @Test(testName = "Создание Dashboard", groups = {"API"})
     public void testCreateDashboard() {
         DashboardIdDTO dashboard = createDashboard();
         List<Dashboard> dashboardsList = step.findAllDashboards();
@@ -53,11 +50,9 @@ public class DashboardApiTest {
         assertTrue(existsDashboardId, "Проверка на наличие Id созданного Dashboard в общем списке");
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Создание и удаление Dashboard")
-    @DisplayName("Создание и удаление Dashboard")
+    @Test(testName = "Создание и удаление Dashboard", groups = {"API"})
     public void testCreateAndDeleteDashboard() {
         DashboardIdDTO dashboard = createDashboard();
         ServerResponse deleteResponse = step.delete(dashboard.getId());
@@ -69,33 +64,27 @@ public class DashboardApiTest {
         assertEquals(messageAboutDeletion, deleteResponse.getMessage(), "Соответствие информативного сообщения об удалении Dashboard");
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Создание Dashboard с пустым именем")
-    @DisplayName("Создание Dashboard с пустым именем")
+    @Test(testName = "Создание Dashboard с пустым именем", groups = {"API"})
     public void testCreateDashboardWithEmptyNameError() {
         ServerResponse createResponse = createDashboardWithError("Empty");
 
         assertEquals(ERROR_MESSAGE_EMPTY_VALUE.getMessage(), createResponse.getMessage(), "Соответствие информативного сообщения об ошибке");
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Создание Dashboard с именем недопустимого размера")
-    @DisplayName("Создание Dashboard с именем недопустимого размера")
+    @Test(testName = "Создание Dashboard с именем недопустимого размера", groups = {"API"})
     public void testCreateDashboardWithNameOfInvalidSizeError() {
         ServerResponse createResponse = createDashboardWithError("Size");
 
         assertEquals(ERROR_MESSAGE_INVALID_SIZE.getMessage(), createResponse.getMessage(), "Соответствие информативного сообщения об ошибке");
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Получение списка всех Dashboard")
-    @DisplayName("Получение списка всех Dashboard")
+    @Test(testName = "Получение списка всех Dashboard", groups = {"API"})
     public void testFindAllDashboards() {
         List<Dashboard> dashboardsList = step.findAllDashboards();
         List<List<Content>> contentList = dashboardsList.stream().map(Dashboard::getContent).toList();
@@ -103,11 +92,9 @@ public class DashboardApiTest {
         assertNotNull(contentList, "Проверка на наличие сущностей в списке");
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Поиск Dashboard по Id")
-    @DisplayName("Поиск Dashboard по Id")
+    @Test(testName = "Поиск Dashboard по Id", groups = {"API"})
     public void testFindDashboardById() {
         DashboardIdDTO dashboard = createDashboard();
         Content findDashboard = step.getById(dashboard.getId());
@@ -116,11 +103,9 @@ public class DashboardApiTest {
         assertEquals(dashboard.getId(), findDashboard.getId(), "Соответствие Id");
     }
 
-    @Tag("API")
-    @Test
     @Owner("Антипов Иван")
     @Story("Добавление Widget к Dashboard")
-    @DisplayName("Добавление Widget к Dashboard")
+    @Test(testName = "Добавление Widget к Dashboard", groups = {"API"})
     public void testAddWidgetToDashboard() throws IOException {
         DashboardIdDTO dashboard = createDashboard();
         DashboardIdDTO widget = createWidget();
