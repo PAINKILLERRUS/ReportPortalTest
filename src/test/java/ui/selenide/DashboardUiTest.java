@@ -22,7 +22,6 @@ public final class DashboardUiTest extends TestSuite {
 
     @BeforeMethod
     public void setUp() {
-        Selenide.open(getBaseUrl());
         authorization();
     }
 

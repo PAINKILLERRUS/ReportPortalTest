@@ -48,7 +48,7 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     }
 
     public void authorization() {
-        //open(getBaseUrl());
+        open(getBaseUrl());
         login();
     }
 

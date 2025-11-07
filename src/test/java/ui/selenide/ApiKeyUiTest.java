@@ -22,7 +22,6 @@ public final class ApiKeyUiTest extends TestSuite {
 
     @BeforeMethod
     public void setUp() {
-        Selenide.open(getBaseUrl());
         authorization();
     }
 
