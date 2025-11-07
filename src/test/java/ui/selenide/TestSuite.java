@@ -2,14 +2,12 @@ package ui.selenide;
 
 import POM.selenide.LoginPage;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
+import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import lombok.Setter;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-import java.time.Duration;
+import org.testng.annotations.Parameters;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -20,30 +18,21 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
 
     private final ConfigReader configReader = new ConfigReader();
 
-    @Setter
-    private static WebDriver driver;
-
     /**
      * Инициализация Selenide с настройками
      * Выполнение метода перед каждым запуском тестов
      */
     @BeforeSuite(alwaysRun = true)
-   // @Parameters({"browser", "baseUrl"})
+    @Parameters({"browser", "baseUrl"})
     public void init() {
-//        Configuration.fileDownload = FileDownloadMode.FOLDER;
-//        Configuration.browserSize = "1920x1080";
-//        Configuration.browser = "chrome";
-//        Configuration.headless = false;
-//        Configuration.reopenBrowserOnFail = true;
-//        System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
-//        System.setProperty("selenide.browser", "Chrome");
-
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        TestSuite.setDriver(driver);
+        Configuration.fileDownload = FileDownloadMode.FOLDER;
+        Configuration.browserSize = "1920x1080";
+        Configuration.browser = "Chrome";
+        Configuration.headless = true;
+        Configuration.reopenBrowserOnFail = true;
+        System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
+        System.setProperty("selenide.browser", "Chrome");
+        authorization();
 
         if (isRemote()) {
             Configuration.remote = "";
@@ -53,8 +42,9 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     /**
      * Выполнение метода после каждого закрытия тестов
      */
+    @AfterSuite
     public void tearDown() {
-        driver.close();
+        Selenide.closeWebDriver();
     }
 
     public void authorization() {
