@@ -5,6 +5,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -33,6 +34,13 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
         System.setProperty("selenide.browser", "Chrome");
         authorization();
+
+        if (System.getenv("JENKINS_HOME") != null) {
+            Configuration.remote = "http://selenoid:4444/wd/hub";
+            Configuration.browserCapabilities = new DesiredCapabilities();
+            Configuration.browserCapabilities.setCapability("enableVNC", true);
+            Configuration.browserCapabilities.setCapability("enableVideo", false);
+        }
 
         if (isRemote()) {
             Configuration.remote = "";
