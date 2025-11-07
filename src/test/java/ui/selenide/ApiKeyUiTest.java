@@ -1,5 +1,6 @@
 package ui.selenide;
 
+import com.codeborne.selenide.Selenide;
 import data_provider.ApiKeyDataProvider;
 import dto.HubDTO;
 import io.qameta.allure.Epic;
@@ -21,6 +22,7 @@ public final class ApiKeyUiTest extends TestSuite {
 
     @BeforeMethod
     public void setUp() {
+        Selenide.open(getBaseUrl());
         authorization();
     }
 
