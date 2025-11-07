@@ -19,15 +19,15 @@ public final class ApiKeyUiTest extends TestSuite {
 
     private final ApiKeyUiSteps steps = new ApiKeyUiSteps();
 
-//    @BeforeMethod
-//    public void setUp() {
-//        authorization();
-//    }
-//
-//    @AfterMethod
-//    public void closingTheTestSession() {
-//        tearDown();
-//    }
+    @BeforeMethod
+    public void setUp() {
+        authorization();
+    }
+
+    @AfterMethod
+    public void closingTheTestSession() {
+        tearDown();
+    }
 
     @Owner("Антипов Иван")
     @Story("Создание нового Api ключа")
