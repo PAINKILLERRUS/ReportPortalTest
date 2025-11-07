@@ -16,7 +16,7 @@
         <junit.version>5.10.0</junit.version>
         <testNg.version>7.11.0</testNg.version>
         <allure.version>2.23.0</allure.version>
-        <groups>API,UI</groups>
+        <groups>API</groups>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <allure-junit5.version>2.23.0</allure-junit5.version>
     </properties>
@@ -171,7 +171,7 @@
                     <!--                    <suiteXmlFiles>-->
                     <!--                        <suiteXmlFile>ApiKey-APITests.xml</suiteXmlFile>-->
                     <!--                    </suiteXmlFiles>-->
-                    <groups>API,UI</groups>
+                    <groups>API</groups>
                     <excludedGroups>${}</excludedGroups>
                 </configuration>
             </plugin>
