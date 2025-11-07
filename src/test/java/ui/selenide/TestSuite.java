@@ -5,6 +5,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -27,8 +28,9 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     public void init(@Optional() String browser, @Optional() String baseUrl) {
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
-        Configuration.browser = "Chrome";
+        Configuration.browser = "chrome";
         Configuration.headless = false;
+        Configuration.reopenBrowserOnFail = true;
         System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
         System.setProperty("selenide.browser", "Chrome");
 
