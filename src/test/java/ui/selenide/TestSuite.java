@@ -32,7 +32,7 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.headless = true;
         Configuration.reopenBrowserOnFail = true;
         System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
-        System.setProperty("selenide.browser", "Chrome");
+        //System.setProperty("selenide.browser", "Chrome");
 
         if (System.getenv("JENKINS_HOME") != null) {
             Configuration.remote = "http://selenoid:4444/wd/hub";
