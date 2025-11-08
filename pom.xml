@@ -16,7 +16,7 @@
         <junit.version>5.10.0</junit.version>
         <testNg.version>7.11.0</testNg.version>
         <allure.version>2.23.0</allure.version>
-        <groups>API,UI</groups>
+<!--        <groups>API,UI</groups>-->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <allure-junit5.version>2.23.0</allure-junit5.version>
     </properties>
@@ -165,15 +165,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
-<!--                    <argLine>-->
-<!--                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"-->
-<!--                    </argLine>-->
-                    <!--                    <suiteXmlFiles>-->
-                    <!--                        <suiteXmlFile>ApiKey-APITests.xml</suiteXmlFile>-->
-                    <!--                    </suiteXmlFiles>-->
-                    <groups>API</groups>
-                    <groups>UI</groups>
-                    <excludedGroups>${}</excludedGroups>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+<!--                    <groups>API,UI</groups>-->
+<!--                    <excludedGroups>${}</excludedGroups>-->
                 </configuration>
             </plugin>
 
