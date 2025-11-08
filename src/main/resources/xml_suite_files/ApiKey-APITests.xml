@@ -11,7 +11,7 @@
 <!--    </test>-->
 <!--</suite>-->
 
-<suite name="API Tests">
+<suite name="API Tests" parallel="methods" thread-count="5">
 <test name="API Tests">
     <groups>
         <run>

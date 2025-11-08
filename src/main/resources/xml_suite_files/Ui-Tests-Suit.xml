@@ -1,14 +1,20 @@
 <?xml version = "1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="UI TESTS" parallel="instances" thread-count="1">
+<suite name="UI TESTS" verbose="1">
     <!---Запускаем группы (через XML):>
     <!-->
-
-    <test name="UI SELENIDE" group-by-instances="true">
+    <test name="UI SELENIDE">
         <parameter name="browser" value="chrome"/>
-        <parameter name="baseUrl" value="https://demo.reportportal.io"/>
+        <parameter name="headless" value="true"/>
+        <parameter name="baseUrl" value="${env.BASE_URL}"/>
+        <groups>
+            <run>
+                <include name="UI"/>
+            </run>
+        </groups>
         <classes>
             <class name="ui.selenide.DashboardUiTest"/>
+            <class name="ui.selenide.ApiKeyUiTest"/>
         </classes>
     </test>
 </suite>
