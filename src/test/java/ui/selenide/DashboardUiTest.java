@@ -7,9 +7,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import listeners.RetryService;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import steps.ui.DashboardUISteps;
 
 @Epic("UI")
@@ -18,12 +16,12 @@ public final class DashboardUiTest extends TestSuite {
 
     private final DashboardUISteps steps = new DashboardUISteps();
 
-    @BeforeSuite
+    @BeforeMethod
     public void setUp() {
         authorization();
     }
 
-    @AfterSuite
+    @AfterMethod
     public void closingTheTestSession() {
         tearDown();
     }

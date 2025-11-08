@@ -16,12 +16,12 @@ public final class ApiKeyUiTest extends TestSuite {
 
     private final ApiKeyUiSteps steps = new ApiKeyUiSteps();
 
-    @BeforeSuite
+    @BeforeMethod
     public void setUp() {
         authorization();
     }
 
-    @AfterSuite
+    @AfterMethod
     public void closingTheTestSession() {
         tearDown();
     }
