@@ -1,6 +1,5 @@
 package ui.selenide;
 
-import com.codeborne.selenide.Selenide;
 import data_provider.DashboardDataProvider;
 import dto.HubDTO;
 import io.qameta.allure.Epic;
@@ -8,9 +7,8 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import listeners.RetryService;
-import org.junit.jupiter.api.Tag;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import steps.ui.DashboardUISteps;
 
@@ -20,12 +18,12 @@ public final class DashboardUiTest extends TestSuite {
 
     private final DashboardUISteps steps = new DashboardUISteps();
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         authorization();
     }
 
-    @AfterMethod
+    @AfterSuite
     public void closingTheTestSession() {
         tearDown();
     }

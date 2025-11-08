@@ -29,10 +29,9 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "Chrome";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.reopenBrowserOnFail = true;
         System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
-        //System.setProperty("selenide.browser", "Chrome");
 
         if (isRemote()) {
             Configuration.remote = "";

@@ -1,6 +1,5 @@
 package ui.selenide;
 
-import com.codeborne.selenide.Selenide;
 import data_provider.ApiKeyDataProvider;
 import dto.HubDTO;
 import io.qameta.allure.Epic;
@@ -8,10 +7,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import listeners.RetryService;
-import org.junit.jupiter.api.Tag;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import steps.ui.ApiKeyUiSteps;
 
 @Epic("UI")
@@ -20,12 +16,12 @@ public final class ApiKeyUiTest extends TestSuite {
 
     private final ApiKeyUiSteps steps = new ApiKeyUiSteps();
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         authorization();
     }
 
-    @AfterMethod
+    @AfterSuite
     public void closingTheTestSession() {
         tearDown();
     }
