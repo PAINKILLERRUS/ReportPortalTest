@@ -3,7 +3,7 @@ pipeline {
     parameters {
         choice(
                 name: 'TEST_SUITE',
-                choices: ['src/main/resources/xml_suite_files/ApiKey-APITests.xml'],
+                choices: ['src/main/resources/xml_suite_files/ApiKey-APITests.xml', 'src/main/resources/xml_suite_files/Ui-Tests-Suit.xml'],
                 description: 'Выбор testng.xml файла для запуска'
         )
         choice(
@@ -16,6 +16,11 @@ pipeline {
                 defaultValue: 'clean test',
                 description: 'Maven цели для выполнения (например, clean test)'
         )
+        string(
+                name: 'BRANCH',
+                defaultValue: 'main',
+                description: 'Имя ветки для сборки'
+        )
         booleanParam(
                 name: 'ALLURE_ENABLED',
                 defaultValue: true,
@@ -25,7 +30,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/PAINKILLERRUS/ReportPortalTest.git'
+                checkout([
+                        $class           : 'GitSCM',
+                        branches         : [[name: "*/${params.BRANCH}"]],
+                        extensions       : [],
+                        userRemoteConfigs: [[
+                                                    url: 'https://github.com/PAINKILLERRUS/ReportPortalTest.git'
+                                            ]]
+                ])
             }
         }
         stage('Test') {
