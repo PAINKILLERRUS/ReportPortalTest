@@ -9,7 +9,6 @@ import dto.widget.WidgetInfo;
 import service.rest_assured.ApiInterface;
 import service.rest_assured.Request;
 
-import java.util.Collections;
 import java.util.List;
 
 public class DashboardService implements ApiInterface {
@@ -45,10 +44,6 @@ public class DashboardService implements ApiInterface {
     public List<Content> getAll() {
         Dashboard dashboard = new Request().get(CREATE_DASHBOARD, Dashboard.class, 200);
         return dashboard.getContent();
-    }
-
-    public List<Dashboard> findAllDashboards() {
-        return Collections.singletonList(new Request().get(CREATE_DASHBOARD, Dashboard.class, 200));
     }
 
     public <T> DashboardIdDTO createWidget(T data) {

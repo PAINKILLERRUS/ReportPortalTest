@@ -3,8 +3,7 @@ package api;
 import dto.ServerResponse;
 import dto.api_key.KeyDTO;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.Tag;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import steps.api.KeySteps;
 
@@ -23,7 +22,7 @@ public class ApiKeyTest {
 
     private final KeySteps keyStep = new KeySteps();
 
-    @AfterTest
+    @AfterMethod
     public static void deleteObjects() {
         deleteAllUnusedObjects();
     }

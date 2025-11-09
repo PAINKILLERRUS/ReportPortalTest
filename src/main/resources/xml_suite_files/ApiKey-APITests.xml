@@ -2,15 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="API Tests" parallel="methods" thread-count="5">
-<test name="API Tests">
-    <groups>
-        <run>
-            <include name="API"/>
-        </run>
-    </groups>
-    <classes>
-        <class name="api.DashboardApiTest"/>
-        <class name="api.ApiKeyTest"/>
-    </classes>
-</test>
+    <test name="API Tests">
+        <groups>
+            <run>
+                <include name="API"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="api.DashboardApiTest"/>
+            <class name="api.ApiKeyTest"/>
+        </classes>
+    </test>
 </suite>

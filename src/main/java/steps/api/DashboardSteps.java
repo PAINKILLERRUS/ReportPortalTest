@@ -3,7 +3,6 @@ package steps.api;
 import dto.ServerResponse;
 import dto.dashboard.DashboardIdDTO;
 import dto.find_all_dashboards.Content;
-import dto.find_all_dashboards.Dashboard;
 import dto.widget.AddWidgetDTO;
 import dto.widget.WidgetInfo;
 import io.qameta.allure.Step;
@@ -36,8 +35,8 @@ public class DashboardSteps {
     }
 
     @Step("Получение списка всех Dashboard")
-    public List<Dashboard> findAllDashboards() {
-        return service.findAllDashboards();
+    public List<Content> findAllDashboards() {
+        return service.getAll();
     }
 
     @Step("Создание Widget")

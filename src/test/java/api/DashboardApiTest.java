@@ -3,13 +3,11 @@ package api;
 import dto.ServerResponse;
 import dto.dashboard.DashboardIdDTO;
 import dto.find_all_dashboards.Content;
-import dto.find_all_dashboards.Dashboard;
 import dto.widget.WidgetInfo;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import steps.api.DashboardSteps;
 
@@ -28,7 +26,7 @@ public class DashboardApiTest {
 
     private final DashboardSteps step = new DashboardSteps();
 
-    @AfterAll
+    @AfterMethod
     public static void deleteObjects() {
         deleteAllUnusedObjects();
     }
@@ -38,9 +36,8 @@ public class DashboardApiTest {
     @Test(testName = "Создание Dashboard", groups = {"API"})
     public void testCreateDashboard() {
         DashboardIdDTO dashboard = createDashboard();
-        List<Dashboard> dashboardsList = step.findAllDashboards();
-        List<List<Content>> contentList = dashboardsList.stream().map(Dashboard::getContent).toList();
-        List<Integer> dashboardsId = contentList.stream().flatMap(List::stream).toList().stream().map(Content::getId).toList();
+        List<Content> dashboardsList = step.findAllDashboards();
+        List<Integer> dashboardsId = dashboardsList.stream().map(Content::getId).toList();
 
         boolean existsDashboardId = dashboardsId.contains(dashboard.getId());
 
@@ -85,10 +82,9 @@ public class DashboardApiTest {
     @Story("Получение списка всех Dashboard")
     @Test(testName = "Получение списка всех Dashboard", groups = {"API"})
     public void testFindAllDashboards() {
-        List<Dashboard> dashboardsList = step.findAllDashboards();
-        List<List<Content>> contentList = dashboardsList.stream().map(Dashboard::getContent).toList();
+        List<Content> dashboardsList = step.findAllDashboards();
 
-        assertNotNull(contentList, "Проверка на наличие сущностей в списке");
+        assertNotNull(dashboardsList, "Проверка на наличие сущностей в списке");
     }
 
     @Owner("Антипов Иван")
