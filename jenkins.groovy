@@ -22,10 +22,10 @@ node {
             stage("Run tests") {
                 parallel(
                         'Api Tests': {
-                            runTestWithTag("API")
+                            runTestWithTag("src/main/resources/xml_suite_files/ApiKey-APITests.xml")
                         },
                         'Ui Tests': {
-                            runTestWithTag("UI")
+                            runTestWithTag("src/main/resources/xml_suite_files/Ui-Tests-Suit.xml")
                         }
                 )
             }
@@ -49,7 +49,7 @@ def getTestStages(testTags) {
 
 def runTestWithTag(String tag) {
     try {
-        labelledShell(label: "Run ${tag}", script: "sh \"mvn test -Dgroups=${tag}\"")
+        labelledShell(label: "Run ${tag}", script: "sh \"mvn test -DsuiteFile=${tag}\"")
     } finally {
         echo "some failed tests"
     }
