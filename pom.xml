@@ -16,6 +16,8 @@
         <junit.version>5.10.0</junit.version>
         <testNg.version>7.11.0</testNg.version>
         <allure.version>2.23.0</allure.version>
+        <suiteFile>ApiKey-APITests.xml</suiteFile>
+        <suiteFile>Ui-Tests-Suit.xml</suiteFile>
         <browser>chrome</browser>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <allure-junit5.version>2.23.0</allure-junit5.version>

@@ -18,14 +18,6 @@ node {
             }
         }
 
-//        try {
-//            parallel getTestStages(["apiTests", "uiTests"])
-//        } finally {
-//            stage("Allure") {
-//                generateAllure()
-//            }
-//        }
-
         try {
             stage("Run tests") {
                 parallel(
