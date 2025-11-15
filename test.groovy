@@ -27,7 +27,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Запуск тестов
-                sh 'test -DsuiteFile=src/main/resources/xml_suite_files/ApiKey-APITests.xml'
+                sh 'test -Dsurefire.suiteFiles=src/main/resources/xml_suite_files/ApiKey-APITests.xml'
             }
         }
 
