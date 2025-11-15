@@ -14,11 +14,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                sh 'clean'
-            }
-        }
 
         stage('Test') {
             steps {
