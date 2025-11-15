@@ -42,10 +42,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                script {
+                //script {
                     // Передача параметров в Maven
                     sh "${params.MAVEN_GOALS} -DsuiteFile=${params.TEST_SUITE}"
-                }
+                //}
             }
         }
     }
