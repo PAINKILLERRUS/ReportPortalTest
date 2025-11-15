@@ -49,7 +49,7 @@ def getTestStages(testTags) {
 
 def runTestWithTag(String tag) {
     try {
-        labelledShell(label: "Run ${tag}", script: "sh \"test -DsuiteFile=${tag}\"")
+        labelledShell(label: "Run ${tag}", script: "sh \"clean test -DsuiteFile=${tag}\"")
     } finally {
         echo "some failed tests"
     }
