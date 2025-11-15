@@ -40,6 +40,13 @@ pipeline {
                 ])
             }
         }
+
+        stage('Build'){
+            steps{
+                sh 'clean compile'
+            }
+
+        }
         stage('Test') {
             steps {
                 //script {
@@ -53,8 +60,10 @@ pipeline {
         always {
             script {
                 if (params.ALLURE_ENABLED) {
-                    allure includeProperties: false,
+                    allure includeProperties: true,
                             jdk: '',
+                            properties       : [],
+                            reportBuildPolicy: 'ALWAYS',
                             results: [[path: 'target/allure-results']]
                 }
             }
