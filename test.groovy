@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven-3.8.5'
-        jdk 'JDK-19'
-        allure 'Allure-2.24.0' // Имя вашей Allure установки в Jenkins
-    }
+//    tools {
+//        maven 'Maven-3.8.5'
+//        jdk 'JDK-19'
+//        allure 'Allure-2.24.0' // Имя вашей Allure установки в Jenkins
+//    }
 
     stages {
         stage('Checkout') {
