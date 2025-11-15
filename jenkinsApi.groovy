@@ -6,11 +6,11 @@ pipeline {
                 choices: ['src/main/resources/xml_suite_files/ApiKey-APITests.xml', 'src/main/resources/xml_suite_files/Ui-Tests-Suit.xml'],
                 description: 'Выбор testng.xml файла для запуска'
         )
-        choice(
-                name: 'BROWSER',
-                choices: ['chrome'],
-                description: 'Браузер для UI тестов'
-        )
+//        choice(
+//                name: 'BROWSER',
+//                choices: ['chrome'],
+//                description: 'Браузер для UI тестов'
+//        )
         string(
                 name: 'MAVEN_GOALS',
                 defaultValue: 'clean test',
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     // Передача параметров в Maven
-                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} -Dbrowser=${params.BROWSER}"
+                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
                 }
             }
         }
