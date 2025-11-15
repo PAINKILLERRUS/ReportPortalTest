@@ -44,21 +44,29 @@ pipeline {
         stage('Test') {
             steps {
                 //script {
-                    // Передача параметров в Maven
-                    sh "${params.MAVEN_GOALS} -Dsurefire.suiteFiles=${params.TEST_SUITE}"
+                // Передача параметров в Maven
+                sh "${params.MAVEN_GOALS} -Dsurefire.suiteFiles=${params.TEST_SUITE}"
                 //}
             }
         }
+
+        stage('Allure Report') {
+            steps {
+                // Генерация отчета
+                sh 'allure:report'
+            }
+        }
     }
+
     post {
         always {
-            //script {
-                //if (params.ALLURE_ENABLED) {
-                    allure includeProperties: false,
-                            jdk: '',
-                            results: [[path: 'target/allure-results']]
-                //}
-           // }
+            // Публикация в Jenkins
+            allure([
+                    includeProperties: false,
+                    results: [[path: 'target/allure-results']],
+                    report: 'target/allure-report',
+                    properties: []
+            ])
         }
     }
 }
