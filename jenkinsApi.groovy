@@ -45,7 +45,7 @@ pipeline {
             steps {
                 //script {
                     // Передача параметров в Maven
-                    sh "${params.MAVEN_GOALS} -DsuiteFile=${params.TEST_SUITE}"
+                    sh "${params.MAVEN_GOALS} -Dsurefire.suiteFiles=${params.TEST_SUITE}"
                 //}
             }
         }
