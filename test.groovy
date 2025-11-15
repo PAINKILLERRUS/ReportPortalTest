@@ -18,8 +18,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Запуск тестов с генерацией Allure результатов
-                sh 'test -DsuiteFile=src/main/resources/xml_suite_files/ApiKey-APITests.xml' +
-                        '-Dallure.results.directory=target/allure-results'
+                sh 'test -DsuiteFile=src/main/resources/xml_suite_files/ApiKey-APITests.xml'
             }
         }
 
