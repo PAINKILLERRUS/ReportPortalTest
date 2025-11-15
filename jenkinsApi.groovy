@@ -52,15 +52,13 @@ pipeline {
     }
     post {
         always {
-            script {
-                if (params.ALLURE_ENABLED) {
+            //script {
+                //if (params.ALLURE_ENABLED) {
                     allure includeProperties: true,
                             jdk: '',
-                            properties       : [],
-                            reportBuildPolicy: 'ALWAYS',
                             results: [[path: 'target/allure-results']]
-                }
-            }
+                //}
+           // }
         }
     }
 }
