@@ -54,7 +54,7 @@ pipeline {
         always {
             //script {
                 //if (params.ALLURE_ENABLED) {
-                    allure includeProperties: true,
+                    allure includeProperties: false,
                             jdk: '',
                             results: [[path: 'target/allure-results']]
                 //}

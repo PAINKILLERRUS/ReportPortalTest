@@ -170,6 +170,15 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteFile}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/1.9.23/aspectjweaver-1.9.23.jar
+                    </argLine>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.testng.AllureTestNg</value>
+                        </property>
+                    </properties>
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
                     </systemPropertyVariables>
