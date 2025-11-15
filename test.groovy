@@ -1,23 +1,32 @@
 pipeline {
     agent any
 
-//    tools {
-//        maven 'Maven-3.8.5'
-//        jdk 'JDK-19'
-//        allure 'Allure-2.24.0' // Имя вашей Allure установки в Jenkins
-//    }
+    parameters {
+        string(
+                name: 'BRANCH',
+                defaultValue: 'main',
+                description: 'Имя ветки для сборки'
+        )
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/PAINKILLERRUS/ReportPortalTest.git'
+                checkout([
+                        $class           : 'GitSCM',
+                        branches         : [[name: "*/${params.BRANCH}"]],
+                        extensions       : [],
+                        userRemoteConfigs: [[
+                                                    url: 'https://github.com/PAINKILLERRUS/ReportPortalTest.git'
+                                            ]]
+                ])
             }
         }
 
 
         stage('Test') {
             steps {
-                // Запуск тестов с генерацией Allure результатов
+                // Запуск тестов
                 sh 'test -DsuiteFile=src/main/resources/xml_suite_files/ApiKey-APITests.xml'
             }
         }
