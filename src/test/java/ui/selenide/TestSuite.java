@@ -25,9 +25,42 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
      * Инициализация Selenide с настройками
      * Выполнение метода перед каждым запуском тестов
      */
-    @BeforeMethod()
+    @BeforeSuite(alwaysRun = true)
     public void init() {
         WebDriverManager.chromedriver().setup();
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--remote-allow-origins=*",
+                "--disable-gpu",
+                "--headless=new",
+                "--no-first-run",
+                "--disable-extensions",
+                "--disable-background-networking",
+                "--disable-background-timer-throttling",
+                "--disable-backgrounding-occluded-windows",
+                "--disable-breakpad",
+                "--disable-client-side-phishing-detection",
+                "--disable-component-extensions-with-background-pages",
+                "--disable-default-apps",
+                "--disable-features=TranslateUI",
+                "--disable-hang-monitor",
+                "--disable-ipc-flooding-protection",
+                "--disable-popup-blocking",
+                "--disable-prompt-on-repost",
+                "--disable-renderer-backgrounding",
+                "--disable-sync"
+        );
+
+        // Отключаем user-data-dir полностью
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("profile.default_content_setting_values.notifications", 2);
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        options.setExperimentalOption("prefs", prefs);
+
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
@@ -35,16 +68,12 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.timeout = 10000;
         Configuration.reopenBrowserOnFail = true;
         authorization();
-
-//        if (isRemote()) {
-//            Configuration.remote = "";
-//        }
     }
 
     /**
      * Выполнение метода после каждого закрытия тестов
      */
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         Selenide.closeWebDriver();
     }
@@ -60,13 +89,6 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         loginPage.getPasswordField().setValue(configReader.getProperty("password"));
         loginPage.getLogin().click();
     }
-
-//    private boolean isRemote() {
-//        return java.util.Optional
-//                .ofNullable(System.getProperty("os.name"))
-//                .filter(s -> !s.contains("Windows"))
-//                .isPresent();
-//    }
 
     public String getBaseUrl() {
         return configReader.getProperty("base.url").concat("/ui/#login");

@@ -42,53 +42,11 @@ pipeline {
             }
         }
 
-        stage('Clean Chrome Processes') {
-            steps {
-                script {
-                    sh '''
-                        # Принудительно убиваем все процессы Chrome
-                        pkill -9 -f chrome || true
-                        pkill -9 -f chromedriver || true
-                        
-                        # Очищаем временные файлы
-                        rm -rf /tmp/.com.google.Chrome.* || true
-                        rm -rf /tmp/.org.chromium.Chromium.* || true
-                        rm -rf /tmp/chrome-* || true
-                        rm -rf /tmp/.X99-lock || true
-                        
-                        # Очищаем кэш Selenide и WebDriver
-                        rm -rf /root/.cache/selenide || true
-                        rm -rf /root/.cache/webdriver || true
-                        rm -rf /root/.config/google-chrome || true
-                    '''
-                }
-            }
-        }
-
-//        stage('Test') {
-//            steps {
-//                script {
-//                    // Используем mvn для выполнения Maven-целей
-//                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
-//                }
-//            }
-//        }
-
         stage('Test') {
             steps {
                 script {
-                    sh """
-                        # Создаем уникальную директорию для этого запуска
-                        export CHROME_TEMP_DIR="/tmp/chrome-profile-${BUILD_ID}"
-                        mkdir -p \$CHROME_TEMP_DIR
-                        
-                        mvn ${params.MAVEN_GOALS} \
-                        -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
-                        -Dselenide.browser=chrome \
-                        -Dselenide.headless=true \
-                        -Dwebdriver.chrome.args="--no-sandbox,--disable-dev-shm-usage,--remote-allow-origins=*,--disable-gpu,--user-data-dir=\$CHROME_TEMP_DIR,--no-first-run,--disable-extensions" \
-                        -Dwebdriver.chrome.whitelisted-ips=""
-                    """
+                    // Используем mvn для выполнения Maven-целей
+                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
                 }
             }
         }
