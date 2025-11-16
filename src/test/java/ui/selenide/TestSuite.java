@@ -37,7 +37,7 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.reopenBrowserOnFail = true;
-        System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
+        //System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
         authorization();
 
         if (isRemote()) {
