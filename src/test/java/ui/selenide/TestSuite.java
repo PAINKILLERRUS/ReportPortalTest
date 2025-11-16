@@ -7,9 +7,7 @@ import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +25,7 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
      * Инициализация Selenide с настройками
      * Выполнение метода перед каждым запуском тестов
      */
-    @BeforeSuite(alwaysRun = true)
+    @BeforeMethod()
     public void init() {
         WebDriverManager.chromedriver().setup();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
@@ -46,7 +44,7 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     /**
      * Выполнение метода после каждого закрытия тестов
      */
-    @AfterSuite
+    @AfterMethod
     public void tearDown() {
         Selenide.closeWebDriver();
     }
