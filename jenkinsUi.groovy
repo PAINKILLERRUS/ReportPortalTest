@@ -42,41 +42,14 @@ pipeline {
             }
         }
 
-//        stage('Test') {
-//            steps {
-//                script {
-//                    // Используем mvn для выполнения Maven-целей
-//                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
-//                }
-//            }
-//        }
-
-        stage('Clean Firefox Processes') {
-            steps {
-                script {
-                    sh '''
-                        # Очищаем процессы Firefox
-                        pkill -f firefox || true
-                        pkill -f geckodriver || true
-                        sleep 2
-                    '''
-                }
-            }
-        }
-
         stage('Test') {
             steps {
                 script {
-                    sh """
-                        mvn ${params.MAVEN_GOALS} \
-                        -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
-                        -Dselenide.browser=firefox \
-                        -Dselenide.headless=true
-                    """
+                    // Используем mvn для выполнения Maven-целей
+                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
                 }
             }
         }
-
 
         stage('Allure Report') {
             when {

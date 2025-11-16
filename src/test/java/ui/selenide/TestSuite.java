@@ -6,12 +6,8 @@ import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -28,24 +24,13 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
      */
     @BeforeSuite(alwaysRun = true)
     public void init() {
-//        WebDriverManager.chromedriver().setup();
-//        Configuration.fileDownload = FileDownloadMode.FOLDER;
-//        Configuration.browserSize = "1920x1080";
-//        Configuration.browser = "chrome";
-//        Configuration.headless = true;
-//        Configuration.timeout = 10000;
-//        Configuration.reopenBrowserOnFail = true;
-//        authorization();
-
-        WebDriverManager.firefoxdriver().setup();
-
+        WebDriverManager.chromedriver().setup();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
-        Configuration.browser = "firefox";
+        Configuration.browser = "chrome";
         Configuration.headless = true;
         Configuration.timeout = 10000;
-        Configuration.reopenBrowserOnFail = false; // Отключаем переоткрытие
-
+        Configuration.reopenBrowserOnFail = true;
         authorization();
     }
 
