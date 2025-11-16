@@ -43,6 +43,18 @@ pipeline {
             }
         }
 
+        stage('Allure Report') {
+            when {
+                expression { params.ALLURE_ENABLED }
+            }
+            steps {
+                script {
+                    // Генерация Allure-отчета через Maven-плагин
+                    sh 'mvn allure:report'
+                }
+            }
+        }
+
 
         post {
             always {
