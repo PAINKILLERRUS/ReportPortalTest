@@ -32,9 +32,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${params.BRANCH}"]],
-                        extensions: [],
+                        $class           : 'GitSCM',
+                        branches         : [[name: "*/${params.BRANCH}"]],
+                        extensions       : [],
                         userRemoteConfigs: [[
                                                     url: 'https://github.com/PAINKILLERRUS/ReportPortalTest.git'
                                             ]]
@@ -51,35 +51,32 @@ pipeline {
 //            }
 //        }
 
-//        stage('Test') {
-//            steps {
-//                script {
-//                    sh """
-//                # Проверяем наличие Chrome
-//                which google-chrome || echo "Chrome not found, using WebDriverManager"
-//
-//                mvn ${params.MAVEN_GOALS} \
-//                -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
-//                -Dselenide.browser=chrome \
-//                -Dselenide.headless=true \
-//                -Dwebdriver.chrome.args="--no-sandbox,--disable-dev-shm-usage,--remote-allow-origins=*,--disable-gpu,--no-first-run"
-//            """
-//                }
-//            }
-//        }
+        stage('Clean Firefox Processes') {
+            steps {
+                script {
+                    sh '''
+                        # Очищаем процессы Firefox
+                        pkill -f firefox || true
+                        pkill -f geckodriver || true
+                        sleep 2
+                    '''
+                }
+            }
+        }
 
         stage('Test') {
             steps {
                 script {
                     sh """
-                mvn ${params.MAVEN_GOALS} \
-                -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
-                -Dselenide.browser=htmlunit \
-                -Dselenide.headless=true
-            """
+                        mvn ${params.MAVEN_GOALS} \
+                        -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
+                        -Dselenide.browser=firefox \
+                        -Dselenide.headless=true
+                    """
                 }
             }
         }
+
 
         stage('Allure Report') {
             when {
@@ -102,10 +99,10 @@ pipeline {
 
                 if (params.ALLURE_ENABLED) {
                     allure([
-                           // includeProperties: false,
-                           // jdk: '',
+                            // includeProperties: false,
+                            // jdk: '',
                             results: [[path: 'target/allure-results']],
-                            report: 'target/allure-report'
+                            report : 'target/allure-report'
                     ])
                 }
             }

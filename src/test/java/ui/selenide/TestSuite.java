@@ -28,18 +28,24 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
      */
     @BeforeSuite(alwaysRun = true)
     public void init() {
-        //WebDriverManager.chromedriver().setup();
-        Configuration.fileDownload = FileDownloadMode.FOLDER;
-        Configuration.browserSize = "1920x1080";
+//        WebDriverManager.chromedriver().setup();
+//        Configuration.fileDownload = FileDownloadMode.FOLDER;
+//        Configuration.browserSize = "1920x1080";
 //        Configuration.browser = "chrome";
 //        Configuration.headless = true;
 //        Configuration.timeout = 10000;
 //        Configuration.reopenBrowserOnFail = true;
 //        authorization();
 
-        Configuration.browser = "htmlunit";
-        Configuration.timeout = 10000;
+        WebDriverManager.firefoxdriver().setup();
+
+        Configuration.fileDownload = FileDownloadMode.FOLDER;
+        Configuration.browserSize = "1920x1080";
+        Configuration.browser = "firefox";
         Configuration.headless = true;
+        Configuration.timeout = 10000;
+        Configuration.reopenBrowserOnFail = false; // Отключаем переоткрытие
+
         authorization();
     }
 
