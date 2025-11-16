@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'M3' //имя установленного Maven в Jenkins
+    }
     parameters {
         choice(
                 name: 'TEST_SUITE',
