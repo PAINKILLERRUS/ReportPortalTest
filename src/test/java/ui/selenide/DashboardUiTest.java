@@ -18,16 +18,6 @@ public final class DashboardUiTest extends TestSuite {
 
     private final DashboardUISteps steps = new DashboardUISteps();
 
-//    @BeforeMethod
-//    public void setUp() {
-//        authorization();
-//    }
-//
-//    @AfterMethod
-//    public void closingTheTestSession() {
-//        tearDown();
-//    }
-
     @Owner("Антипов Иван")
     @Story("Создание нового Dashboard")
     @Test(testName = "Создание нового Dashboard", groups = {"UI"}, dataProviderClass = DashboardDataProvider.class, dataProvider = "createDashboard")
