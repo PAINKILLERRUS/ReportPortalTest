@@ -45,11 +45,25 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Используем mvn для выполнения Maven-целей
-                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
+                    sh """
+                        mvn ${params.MAVEN_GOALS} \
+                        -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
+                        -Dselenide.browser=chrome \
+                        -Dselenide.headless=true \
+                        -Dwebdriver.chrome.whitelisted-ips="" \
+                        -Dwebdriver.chrome.args="--no-sandbox,--disable-dev-shm-usage,--remote-allow-origins=*,--disable-gpu,--user-data-dir=/tmp/chrome-profile-${BUILD_NUMBER}"
+                    """
                 }
             }
         }
+//        stage('Test') {
+//            steps {
+//                script {
+//                    // Используем mvn для выполнения Maven-целей
+//                    sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
+//                }
+//            }
+//        }
 
         stage('Allure Report') {
             when {
