@@ -6,9 +6,13 @@ import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -27,13 +31,39 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     @Parameters({"browser", "baseUrl"})
     public void init() {
         WebDriverManager.chromedriver().setup();
-        Configuration.fileDownload = FileDownloadMode.FOLDER;
-        Configuration.browserSize = "1920x1080";
-        Configuration.browser = "Chrome";
+
+        // Настройки Selenide
+        Configuration.browser = "chrome";
         Configuration.headless = true;
         Configuration.timeout = 10000;
-        //Configuration.reopenBrowserOnFail = true;
-        //System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
+        Configuration.browserSize = "1920x1080";
+        Configuration.screenshots = true;
+        Configuration.savePageSource = false;
+
+        // Chrome options для Jenkins
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--remote-allow-origins=*",
+                "--disable-gpu",
+                "--user-data-dir=/tmp/chrome-profile-" + System.currentTimeMillis()
+        );
+
+        // Отключаем автоматическое управление user-data-dir в Selenide
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("download.default_directory", System.getProperty("java.io.tmpdir"));
+        options.setExperimentalOption("prefs", prefs);
+
+        Configuration.browserCapabilities = options;
+//        WebDriverManager.chromedriver().setup();
+//        Configuration.fileDownload = FileDownloadMode.FOLDER;
+//        Configuration.browserSize = "1920x1080";
+//        Configuration.browser = "Chrome";
+//        Configuration.headless = true;
+//        Configuration.timeout = 10000;
+//        //Configuration.reopenBrowserOnFail = true;
+//        //System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
         authorization();
 
         if (isRemote()) {
