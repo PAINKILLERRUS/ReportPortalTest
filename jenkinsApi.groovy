@@ -53,7 +53,7 @@ pipeline {
         stage('Allure Report') {
             steps {
                 // Генерация отчета
-                sh 'allure:serve'
+                sh 'allure:report'
             }
         }
     }
