@@ -36,7 +36,7 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.reopenBrowserOnFail = true;
-        //authorization();
+        authorization();
 
 //        if (isRemote()) {
 //            Configuration.remote = "";
