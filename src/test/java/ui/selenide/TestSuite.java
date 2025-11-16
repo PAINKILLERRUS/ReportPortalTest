@@ -5,6 +5,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import configuration.ConfigReader;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -25,12 +26,14 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     @BeforeSuite(alwaysRun = true)
     @Parameters({"browser", "baseUrl"})
     public void init() {
+        WebDriverManager.chromedriver().setup();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "Chrome";
         Configuration.headless = true;
-        Configuration.reopenBrowserOnFail = true;
-        System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
+        Configuration.timeout = 10000;
+        //Configuration.reopenBrowserOnFail = true;
+        //System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
         authorization();
 
         if (isRemote()) {
