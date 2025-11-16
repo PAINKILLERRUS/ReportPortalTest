@@ -6,11 +6,6 @@ pipeline {
                 choices: ['src/main/resources/xml_suite_files/ApiKey-APITests.xml', 'src/main/resources/xml_suite_files/Ui-Tests-Suit.xml'],
                 description: 'Выбор testng.xml файла для запуска'
         )
-//        choice(
-//                name: 'BROWSER',
-//                choices: ['chrome'],
-//                description: 'Браузер для UI тестов'
-//        )
         string(
                 name: 'MAVEN_GOALS',
                 defaultValue: 'clean test',
@@ -43,30 +38,26 @@ pipeline {
 
         stage('Test') {
             steps {
-                //script {
                 // Передача параметров в Maven
-                sh '${params.MAVEN_GOALS} -DsuiteFile=${params.TEST_SUITE}'
-                //}
+                sh "mvn ${params.MAVEN_GOALS} -DsuiteFile=${params.TEST_SUITE}"
             }
         }
 
-        stage('Allure Report') {
-            steps {
-                // Генерация отчета
-                sh 'allure:report'
-            }
-        }
-    }
 
-    post {
-        always {
-            // Публикация в Jenkins
-            allure([
-                    includeProperties: false,
-                    results: [[path: 'target/allure-results']],
-                    report: 'target/allure-report',
-                    properties: []
-            ])
+        post {
+            always {
+                // Публикация в Jenkins, если включен Allure
+                script {
+                    if (params.ALLURE_ENABLED) {
+                        allure([
+                                includeProperties: false,
+                                results          : [[path: 'target/allure-results']],
+                                report           : 'target/allure-report',
+                                properties       : []
+                        ])
+                    }
+                }
+            }
         }
     }
 }
