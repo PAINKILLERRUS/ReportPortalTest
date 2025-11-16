@@ -42,48 +42,6 @@ pipeline {
             }
         }
 
-        stage('Install System ChromeDriver') {
-            steps {
-                script {
-                    sh '''
-                # Установка Chrome
-                apt-get update
-                apt-get install -y wget unzip
-                wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-                echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
-                apt-get update
-                apt-get install -y google-chrome-stable
-                
-                # Установка ChromeDriver
-                CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
-                CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION%.*}")
-                wget -N https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-                unzip -o chromedriver_linux64.zip
-                mv chromedriver /usr/local/bin/chromedriver
-                chmod +x /usr/local/bin/chromedriver
-                
-                # Проверка
-                google-chrome --version
-                chromedriver --version
-            '''
-                }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                script {
-                    sh """
-                mvn ${params.MAVEN_GOALS} \
-                -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
-                -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver \
-                -Dselenide.browser=chrome \
-                -Dselenide.headless=true
-            """
-                }
-            }
-        }
-
 //        stage('Test') {
 //            steps {
 //                script {
@@ -92,6 +50,23 @@ pipeline {
 //                }
 //            }
 //        }
+
+        stage('Test') {
+            steps {
+                script {
+                    sh """
+                # Проверяем наличие Chrome
+                which google-chrome || echo "Chrome not found, using WebDriverManager"
+                
+                mvn ${params.MAVEN_GOALS} \
+                -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
+                -Dselenide.browser=chrome \
+                -Dselenide.headless=true \
+                -Dwebdriver.chrome.args="--no-sandbox,--disable-dev-shm-usage,--remote-allow-origins=*,--disable-gpu,--no-first-run"
+            """
+                }
+            }
+        }
 
         stage('Allure Report') {
             when {
