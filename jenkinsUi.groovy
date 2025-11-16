@@ -51,18 +51,31 @@ pipeline {
 //            }
 //        }
 
+//        stage('Test') {
+//            steps {
+//                script {
+//                    sh """
+//                # Проверяем наличие Chrome
+//                which google-chrome || echo "Chrome not found, using WebDriverManager"
+//
+//                mvn ${params.MAVEN_GOALS} \
+//                -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
+//                -Dselenide.browser=chrome \
+//                -Dselenide.headless=true \
+//                -Dwebdriver.chrome.args="--no-sandbox,--disable-dev-shm-usage,--remote-allow-origins=*,--disable-gpu,--no-first-run"
+//            """
+//                }
+//            }
+//        }
+
         stage('Test') {
             steps {
                 script {
                     sh """
-                # Проверяем наличие Chrome
-                which google-chrome || echo "Chrome not found, using WebDriverManager"
-                
                 mvn ${params.MAVEN_GOALS} \
                 -Dsurefire.suiteXmlFiles=${params.TEST_SUITE} \
-                -Dselenide.browser=chrome \
-                -Dselenide.headless=true \
-                -Dwebdriver.chrome.args="--no-sandbox,--disable-dev-shm-usage,--remote-allow-origins=*,--disable-gpu,--no-first-run"
+                -Dselenide.browser=htmlunit \
+                -Dselenide.headless=true
             """
                 }
             }
