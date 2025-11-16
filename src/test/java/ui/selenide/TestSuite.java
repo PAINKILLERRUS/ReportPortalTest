@@ -28,12 +28,12 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
      * Выполнение метода перед каждым запуском тестов
      */
     @BeforeSuite(alwaysRun = true)
-    @Parameters({"browser", "baseUrl"})
+    //@Parameters({"browser", "baseUrl"})
     public void init() {
         WebDriverManager.chromedriver().setup();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
-        Configuration.browser = "Chrome";
+        Configuration.browser = "chrome";
         Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.reopenBrowserOnFail = true;
