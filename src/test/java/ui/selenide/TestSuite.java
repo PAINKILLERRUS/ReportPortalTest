@@ -28,7 +28,6 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
      * Выполнение метода перед каждым запуском тестов
      */
     @BeforeSuite(alwaysRun = true)
-    //@Parameters({"browser", "baseUrl"})
     public void init() {
         WebDriverManager.chromedriver().setup();
         Configuration.fileDownload = FileDownloadMode.FOLDER;
@@ -37,12 +36,11 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.headless = true;
         Configuration.timeout = 10000;
         Configuration.reopenBrowserOnFail = true;
-        //System.setProperty("webdriver.chrome.driver", configReader.getProperty("chromedriver"));
         authorization();
 
-        if (isRemote()) {
-            Configuration.remote = "";
-        }
+//        if (isRemote()) {
+//            Configuration.remote = "";
+//        }
     }
 
     /**
@@ -65,12 +63,12 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         loginPage.getLogin().click();
     }
 
-    private boolean isRemote() {
-        return java.util.Optional
-                .ofNullable(System.getProperty("os.name"))
-                .filter(s -> !s.contains("Windows"))
-                .isPresent();
-    }
+//    private boolean isRemote() {
+//        return java.util.Optional
+//                .ofNullable(System.getProperty("os.name"))
+//                .filter(s -> !s.contains("Windows"))
+//                .isPresent();
+//    }
 
     public String getBaseUrl() {
         return configReader.getProperty("base.url").concat("/ui/#login");
