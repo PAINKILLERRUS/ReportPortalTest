@@ -39,7 +39,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Передача параметров в Maven
-                sh "mvn ${params.MAVEN_GOALS} -DsuiteFile=${params.TEST_SUITE}"
+                sh "mvn ${params.MAVEN_GOALS} -Dsurefire.suiteXmlFiles=${params.TEST_SUITE}"
             }
         }
 
