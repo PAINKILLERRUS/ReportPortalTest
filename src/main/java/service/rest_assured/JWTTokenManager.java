@@ -10,8 +10,36 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static service.DashboardService.GET_TOKEN;
 
+/**
+ * Класс, отвечающий за получение JWT токена. В классе реализуется паттерн Singleton(одиночка)
+ */
+
 public class JWTTokenManager {
+
+    /**
+     * Единственный экземпляр(инициализируется при первом вызове getInstance())
+     */
+    private static JWTTokenManager instance;
+
     private String jwtToken;
+
+
+    /**
+     * Приватный конструктор предотвращает создание экземпляров извне
+     */
+    private JWTTokenManager() {
+
+    }
+
+    /**
+     * Глобальная точка доступа
+     */
+    public static JWTTokenManager getInstance() {
+        if (instance == null) {
+            instance = new JWTTokenManager();
+        }
+        return instance;
+    }
 
     public String getJwtToken() {
         if (jwtToken == null) {
@@ -19,6 +47,7 @@ public class JWTTokenManager {
         }
         return "bearer " + jwtToken;
     }
+
 
     private String fetchJWTToken() {
         TokenDTO response = given()

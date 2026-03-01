@@ -10,11 +10,11 @@ import static io.restassured.RestAssured.given;
 
 public class Request {
 
-    private final JWTTokenManager jwtTokenManager = new JWTTokenManager();
+    //private final JWTTokenManager jwtTokenManager = new JWTTokenManager();
 
     public <T> T get(@NonNull String basePath, @NonNull Class<T> dtoClass) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .when()
@@ -26,7 +26,7 @@ public class Request {
 
     public Response get(@NonNull String basePath, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .when()
@@ -38,7 +38,7 @@ public class Request {
 
     public <T> T get(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .when()
@@ -50,7 +50,7 @@ public class Request {
 
     public <T> T post(@NonNull String basePath, @NonNull Object bodyPayLoad, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .body(bodyPayLoad)
@@ -64,7 +64,7 @@ public class Request {
 
     public <T> T post(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .when()
@@ -77,7 +77,7 @@ public class Request {
 
     public <T> T post(@NonNull String basePath, @NonNull Map<String, ?> params, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .params(params)
@@ -91,7 +91,7 @@ public class Request {
 
     public <T> T put(@NonNull String basePath, @NonNull Object bodyPayLoad, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .body(bodyPayLoad)
@@ -105,7 +105,7 @@ public class Request {
 
     public <T> T delete(@NonNull String basePath, @NonNull Class<T> dtoClass, @NonNull Integer statusCode) {
         return given()
-                .headers("Authorization", jwtTokenManager.getJwtToken())
+                .headers("Authorization", JWTTokenManager.getInstance().getJwtToken())
                 .spec(Specification.requestSpecification())
                 .basePath(basePath)
                 .when()
