@@ -22,7 +22,7 @@ public class KeyService implements ApiInterface {
 
     @Override
     public Object getById(int id) {
-        return null;
+        throw new RuntimeException("Unimplemented operation");
     }
 
     @Override
