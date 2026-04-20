@@ -7,14 +7,22 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import listeners.RetryService;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.ui.ApiKeyUiSteps;
+import ui.selenide.settings_ui.Authorization;
+import ui.selenide.settings_ui.SelenideConfigurator;
 
 @Epic("UI")
 @Feature("Api Keys")
-public final class ApiKeyUiTest extends TestSuite {
+public class ApiKeyUiTest extends SelenideConfigurator {
 
     private final ApiKeyUiSteps steps = new ApiKeyUiSteps();
+
+    @BeforeMethod
+    public void seUp() {
+        new Authorization().authorization();
+    }
 
     @Owner("Антипов Иван")
     @Story("Создание нового Api ключа")

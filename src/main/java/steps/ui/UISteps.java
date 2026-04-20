@@ -4,10 +4,16 @@ import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebElementCondition;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.interactable;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.switchTo;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static service.SelenideService.findByText;
 
 public sealed class UISteps permits DashboardUISteps, ApiKeyUiSteps {
@@ -63,5 +69,21 @@ public sealed class UISteps permits DashboardUISteps, ApiKeyUiSteps {
     public void clear(SelenideElement element) {
         element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         element.sendKeys(Keys.BACK_SPACE);
+    }
+
+    @Step("Явное переключение на новое окно")
+    public void explicitlySwitchingToANewWindow(SelenideElement element) {
+        String originalWindow = getWebDriver().getWindowHandle();
+        element.shouldBe(visible).click();
+
+        new WebDriverWait(getWebDriver(), Duration.ofSeconds(5)).until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        for (String windowHandle : getWebDriver().getWindowHandles()) {
+            if (!originalWindow.equals(windowHandle)) {
+                switchTo().window(windowHandle);
+                break;
+            }
+        }
+        sleep(2000);
     }
 }

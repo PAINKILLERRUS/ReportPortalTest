@@ -7,14 +7,22 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import listeners.RetryService;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.ui.DashboardUISteps;
+import ui.selenide.settings_ui.Authorization;
+import ui.selenide.settings_ui.SelenideConfigurator;
 
 @Epic("UI")
 @Feature("Dashboard")
-public final class DashboardUiTest extends TestSuite {
+public class DashboardUiTest extends SelenideConfigurator {
 
     private final DashboardUISteps steps = new DashboardUISteps();
+
+    @BeforeMethod
+    public void seUp() {
+        new Authorization().authorization();
+    }
 
     @Owner("Антипов Иван")
     @Story("Создание нового Dashboard")

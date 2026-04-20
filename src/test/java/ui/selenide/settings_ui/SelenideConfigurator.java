@@ -1,22 +1,16 @@
-package ui.selenide;
+package ui.selenide.settings_ui;
 
-import POM.selenide.LoginPage;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
-import configuration.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import static com.codeborne.selenide.Selenide.open;
-
 /**
  * Базовый класс для инициализации Selenide
  */
-public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
-
-    private final ConfigReader configReader = new ConfigReader();
+public class SelenideConfigurator {
 
     /**
      * Инициализация Selenide с настройками
@@ -28,10 +22,9 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
         Configuration.fileDownload = FileDownloadMode.FOLDER;
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.timeout = 10000;
         Configuration.reopenBrowserOnFail = true;
-        authorization();
     }
 
     /**
@@ -40,21 +33,5 @@ public abstract sealed class TestSuite permits DashboardUiTest, ApiKeyUiTest {
     @AfterSuite
     public void tearDown() {
         Selenide.closeWebDriver();
-    }
-
-    public void authorization() {
-        open(getBaseUrl());
-        login();
-    }
-
-    private void login() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.getLoginField().setValue(configReader.getProperty("login"));
-        loginPage.getPasswordField().setValue(configReader.getProperty("password"));
-        loginPage.getLogin().click();
-    }
-
-    public String getBaseUrl() {
-        return configReader.getProperty("base.url").concat("/ui/#login");
     }
 }
