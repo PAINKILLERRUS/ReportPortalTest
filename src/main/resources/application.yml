@@ -1,0 +1,5 @@
+app:
+  login: ${USER_LOGIN:defaultLogin}
+  password: ${USER_PASSWORD:defaultPassword}
+  grant_type: ${GRANT_TYPE:defaultGrantType}
+  base-url: ${BASE_URL:https://demo.reportportal.io}
