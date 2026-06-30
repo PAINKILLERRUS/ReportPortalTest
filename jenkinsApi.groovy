@@ -1,9 +1,9 @@
-pipeline {
-    agent any
+pipeline { // Начало описания пайплайна Jenkins
+    agent any  // Запускать пайплайн на любом доступном агенте (ноде Jenkins)
     tools {
         maven 'jenkins-maven' // Имя установки Maven в Jenkins
     }
-    parameters {
+    parameters { // Параметры, которые будут доступны в параметризованной сборке
         choice(
                 name: 'TEST_SUITE',
                 choices: [
@@ -28,8 +28,8 @@ pipeline {
                 description: 'Генерировать Allure отчет'
         )
     }
-    stages {
-        stage('Checkout') {
+    stages {  // Определение последовательных стадий пайплайна
+        stage('Checkout') { // Стадия 1: Получение кода из репозитория
             steps {
                 checkout([
                         $class: 'GitSCM',
@@ -42,7 +42,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Test') {  // Стадия 3: Запуск тестов
             steps {
                 script {
                     // Используем mvn для выполнения Maven-целей
@@ -64,8 +64,8 @@ pipeline {
         }
     }
 
-    post {
-        always {
+    post {  // Блок действий, которые выполняются после всех стадий
+        always { // Всегда выполнять этот блок — независимо от результата сборки
             script {
                 if (params.ALLURE_ENABLED) {
                     allure([

@@ -26,6 +26,9 @@ import static enums.TestObjectName.WIDGET_NAME;
 import static service.NameService.getUniqueApiKeyName;
 import static service.NameService.getWidgetName;
 
+/**
+ * Класс с утилитарными функциями
+ */
 public final class Utils {
 
     private static final DashboardSteps STEP = new DashboardSteps();

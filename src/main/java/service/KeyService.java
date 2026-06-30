@@ -3,12 +3,13 @@ package service;
 import dto.ServerResponse;
 import dto.api_key.AllKeysDTO;
 import dto.api_key.KeyDTO;
-import service.rest_assured.ApiInterface;
 import service.rest_assured.Request;
+import service.rest_assured.crud_interfaces.Create;
+import service.rest_assured.crud_interfaces.GetAllAndDelete;
 
 import java.util.List;
 
-public class KeyService implements ApiInterface {
+public class KeyService implements GetAllAndDelete, Create {
 
     private static final String GET_KEY = "/api/users/2/api-keys";
     private static final String DELETE_KEY = "/api/users/2/api-keys/";
@@ -18,11 +19,6 @@ public class KeyService implements ApiInterface {
     @Override
     public ServerResponse delete(int id) {
         return new Request().delete(DELETE_KEY.concat(String.valueOf(id)), ServerResponse.class, 200);
-    }
-
-    @Override
-    public Object getById(int id) {
-        throw new RuntimeException("Unimplemented operation");
     }
 
     @Override

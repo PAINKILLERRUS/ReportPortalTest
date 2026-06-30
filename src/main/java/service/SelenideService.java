@@ -8,7 +8,8 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class SelenideService {
+public abstract class SelenideService {
+
     public static SelenideElement findByText(String text) {
         return $(byText(text));
     }

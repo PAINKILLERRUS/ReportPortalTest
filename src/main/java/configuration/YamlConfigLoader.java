@@ -1,5 +1,6 @@
 package configuration;
 
+import dto.AppConfig;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -15,17 +16,18 @@ public class YamlConfigLoader {
 
     /**
      * Загружает YAML-файл из classpath, заменяет переменные окружения и возвращает AppConfig.
+     *
      * @param yamlFilePath путь внутри resources (например, "app.yml")
      */
     public static AppConfig loadAppConfig(String yamlFilePath) throws IOException {
         Yaml yaml = new Yaml();
-        try(InputStream inputStream = YamlConfigLoader.class.getClassLoader().getResourceAsStream(yamlFilePath)) {
-            if (inputStream == null){
+        try (InputStream inputStream = YamlConfigLoader.class.getClassLoader().getResourceAsStream(yamlFilePath)) {
+            if (inputStream == null) {
                 throw new IllegalArgumentException("YAML file not found: " + yamlFilePath);
             }
             Map<String, Object> rawData = yaml.load(inputStream);
             Map<String, Object> appMap = (Map<String, Object>) rawData.get("app");
-            if (appMap == null){
+            if (appMap == null) {
                 throw new IllegalStateException("Missing 'app' section in YAML");
             }
 
@@ -44,13 +46,13 @@ public class YamlConfigLoader {
      * Рекурсивно обходит Map, List и строки, заменяя плейсхолдеры.
      */
     @SuppressWarnings("unchecked")
-    public static void resolvePlaceholders(Object obj){
-        if (obj instanceof Map){
-            Map<String,Object> map = (Map<String, Object>) obj;
-            for (Map.Entry<String,Object> entry: map.entrySet()){
+    public static void resolvePlaceholders(Object obj) {
+        if (obj instanceof Map) {
+            Map<String, Object> map = (Map<String, Object>) obj;
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
                 Object value = entry.getValue();
-                if (value instanceof String){
-                    String resolved = resolveString((String)value);
+                if (value instanceof String) {
+                    String resolved = resolveString((String) value);
                     entry.setValue(resolved);
                 } else if (value instanceof Map || value instanceof List) {
                     resolvePlaceholders(value);// рекурсия для вложенных структур
@@ -73,15 +75,15 @@ public class YamlConfigLoader {
      * Заменяет в строке все вхождения ${VAR:default} или ${VAR} на значение
      * переменной окружения или на default, если переменная не задана.
      */
-    public static String resolveString(String str){
+    public static String resolveString(String str) {
         if (str == null) return null;
         Matcher matcher = VAR_PATTERN.matcher(str);
         StringBuilder stringBuilder = new StringBuilder();
-        while (matcher.find()){
+        while (matcher.find()) {
             String varName = matcher.group(1);
-            String defaultValue  = matcher.group(2);
+            String defaultValue = matcher.group(2);
             String envValue = System.getenv(varName);
-            String replacement = (envValue != null && !envValue.isEmpty()) ?envValue :(defaultValue !=null ? defaultValue: " ");
+            String replacement = (envValue != null && !envValue.isEmpty()) ? envValue : (defaultValue != null ? defaultValue : " ");
             matcher.appendReplacement(stringBuilder, Matcher.quoteReplacement(replacement));
         }
         matcher.appendTail(stringBuilder);

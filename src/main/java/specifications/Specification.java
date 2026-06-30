@@ -1,6 +1,5 @@
 package specifications;
 
-import configuration.ConfigReader;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -11,12 +10,20 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
+import java.io.IOException;
+
+import static configuration.YamlConfigLoader.loadAppConfig;
+
 
 public class Specification {
 
     public static RequestSpecification requestSpecification() {
-        ConfigReader configReader = new ConfigReader();
-        String baseUrl = configReader.getProperty("base.url");
+        String baseUrl;
+        try {
+            baseUrl = loadAppConfig("application.yml").getBaseUrl();
+        } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
 
         return new RequestSpecBuilder()
                 .setBaseUri(baseUrl)

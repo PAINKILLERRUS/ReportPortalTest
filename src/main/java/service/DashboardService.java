@@ -6,12 +6,14 @@ import dto.find_all_dashboards.Content;
 import dto.find_all_dashboards.Dashboard;
 import dto.widget.AddWidgetDTO;
 import dto.widget.WidgetInfo;
-import service.rest_assured.ApiInterface;
 import service.rest_assured.Request;
+import service.rest_assured.crud_interfaces.Create;
+import service.rest_assured.crud_interfaces.GetAllAndDelete;
+import service.rest_assured.crud_interfaces.GetById;
 
 import java.util.List;
 
-public class DashboardService implements ApiInterface {
+public class DashboardService implements GetAllAndDelete, Create, GetById {
 
     public static final String GET_TOKEN = "/uat/sso/oauth/token";
     public static final String CREATE_DASHBOARD = "/api/v1/default_personal/dashboard";

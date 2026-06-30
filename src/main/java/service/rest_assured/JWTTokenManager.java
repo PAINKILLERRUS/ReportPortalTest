@@ -4,9 +4,11 @@ import dto.TokenDTO;
 import io.restassured.http.ContentType;
 import specifications.Specification;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static configuration.YamlConfigLoader.loadAppConfig;
 import static io.restassured.RestAssured.given;
 import static service.DashboardService.GET_TOKEN;
 
@@ -68,9 +70,14 @@ public class JWTTokenManager {
 
     public Map<String, String> registrationParams() {
         Map<String, String> headers = new HashMap<>();
-        headers.put("username", "default");
-        headers.put("password", "1q2w3e");
-        headers.put("grant_type", "password");
+        try {
+            headers.put("username", loadAppConfig("application.yml").getLogin());
+            headers.put("password", loadAppConfig("application.yml").getPassword());
+            headers.put("grant_type", loadAppConfig("application.yml").getGrantType());
+        } catch (IOException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+
         return headers;
     }
 }

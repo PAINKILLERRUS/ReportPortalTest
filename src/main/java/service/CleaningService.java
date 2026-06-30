@@ -1,7 +1,7 @@
 package service;
 
-import service.rest_assured.ApiInterface;
 import service.rest_assured.Dto;
+import service.rest_assured.crud_interfaces.GetAllAndDelete;
 
 import static enums.TestObjectName.API_KEY;
 import static enums.TestObjectName.DASHBOARD;
@@ -17,7 +17,7 @@ public class CleaningService {
         deleteUnusedObjects(new KeyService(), API_KEY.getPublicName());
     }
 
-    public static void deleteUnusedObjects(ApiInterface apiInterface, String name) {
+    public static void deleteUnusedObjects(GetAllAndDelete apiInterface, String name) {
         apiInterface.getAll()
                 .stream()
                 .filter(object -> object.getName() != null)
